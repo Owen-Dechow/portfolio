@@ -1,0 +1,31 @@
+/* Form */
+main form {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    padding: 10px;
+    padding-bottom: 20px;
+    color: var(--light-text);
+
+}
+
+main form textarea {
+    min-height: 200px;
+    margin-bottom: 5px;
+}
+
+main form h1 {
+    margin: 0;
+}
+
+main form p {
+    margin: 0 0 20px 0;
+    padding: 10px;
+    background-color: var(--d-prime);
+    transition-duration: 0.5s;
+}
+
+main form label {
+    margin-top: 10px;
+    margin-bottom: 2px;
+}

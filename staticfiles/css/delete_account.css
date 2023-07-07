@@ -1,0 +1,18 @@
+main form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+main p {
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+main p button {
+    margin-bottom: 10px;
+}

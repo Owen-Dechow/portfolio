@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static '/css/auth_base.css' %}">
+{% endblock %}
+
+{% block head %}
+<img src="{% static '/images/headers/passwords.png' %}">
+<h1>Login</h1>
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+
+    {% if form.errors %}
+    <ul class="errorlist">
+        <li>Please enter a correct username and password. Note that both fields may be case-sensitive.</li>
+    </ul>
+    {% endif %}
+
+    {% for f in form %}
+
+    {{ f.label_tag }}
+    {{ f }}
+    {{ f.errors }}
+
+    <span>{{ f.help_text }}</span>
+
+    <br>
+
+    {% endfor %}
+
+    <div class="btn">
+        <button type="submit">Log In</button>
+        <button type="button" onclick="window.location='{{request.full_path}}/auth/password_reset'">
+            Reset Password</button>
+    </div>
+</form>
+
+{% endblock %}

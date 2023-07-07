@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Create Account
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static '/css/auth_base.css' %}">
+{% endblock %}
+
+{% block head %}
+<img src="{% static '/images/headers/make_account.png' %}">
+<h1>Make an Account</h1>
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+
+    {% for f in form %}
+
+    {{ f.label_tag }}
+    {{ f }}
+    {{ f.errors }}
+    <span>{{ f.help_text }}</span>
+
+    <br>
+
+    {% endfor %}
+
+    <div class="btn">
+        <button type="submit">Register</button>
+        <button type="button" onclick="window.location='{{request.full_path}}/auth/login'">
+            Go To Login</button>
+    </div>
+</form>
+{% endblock %}

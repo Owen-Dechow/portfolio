@@ -1,0 +1,27 @@
+main form {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+main h1 {
+    margin: 0;
+}
+
+main ul {
+    margin: 5px 0;
+    padding: 0;
+    list-style: none;
+}
+
+main ul.errorlist {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: var(--light-text);
+    background-color: var(--d-prime);
+    padding: 10px;
+}
+
+main input {
+    margin-bottom: 5px;
+}

@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block title %}Computer Science{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static '/css/comp_si.css' %}">
+{% endblock %}
+
+{% block head %}
+    <img src="{% static '/images/headers/html.jpg' %}">
+    <h1>Computer Science</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="section section-1">
+
+        <div class="text">
+            <h1>How I got here</h1>
+            <div class="shadow-util">
+                <p>
+                    I first started programming making games, using a visual scripting website called <a href="https://scratch.mit.edu/users/goats26174/" target="_blank">Scratch</a>.
+                    I loved using Scratch but wanted to make bigger games.
+                </p>
+                <p>
+                    I started by learning
+                    <a href="https://learn.microsoft.com/en-us/dotnet/csharp/"
+                       target="_blank">C#</a>
+                    (see-sharp), so I could build games in the
+                    <a href="https://unity.com/" target="_blank">Unity</a> game engine, but I didn't really learn much until I took
+                    the computer science course at my school. The course was based around the programming language
+                    <a href="https://python.org/" target="_blank">Python</a> and run through
+                    <a href="https://academy.cs.cmu.edu/" target="_blank">CMU CS Academy</a>.
+                </p>
+                <p>
+                    I flew through the curriculum at about three times the speed of instruction! By the end of the
+                    second unit, I had already made a small
+                    <a href="https://academy.cs.cmu.edu/sharing/purpleCamel6521"
+                       target="_blank">game</a>. I finished
+                    the curriculum in less than half the time I should of taken. That is when I first started working with
+                    <a href="https://www.djangoproject.com/" target="_blank">Django</a>.
+                </p>
+                <p>
+                    Django is a web-framework that uses the Python programming language in the backend (Used to build this website). From there I had to learn HTML,
+                    CSS and JavaScript, for the front end of websites. I eventually went back and started building games again with Unity and even went on to
+                    build a <a href="https://cowprogress.herokuapp.com" target="_blank">Holstein Breeding Program Simulation</a> website for my dad, a Penn State Dairy Science Professor.
+                </p>
+            </div>
+        </div>
+
+        <div class="i-know">
+            <h1>Programming Experience</h1>
+            {% for lan in languages %}
+                <p>
+                    <span class="a shadow-util">
+                        <span class="b"
+                              id="language-{{ lan.name }}"
+                              style="width: {{ lan.skill }}%">{{ lan.name }}</span>
+                    </span>
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="section section-2">
+        <h1>Timeline</h1>
+        <div class="timeline">
+            <div class="line"></div>
+            <div class="timeline-element-container">
+                {% for e in timeline %}
+                    <div class="timeline-element-stack">
+                        <span class="timeline-element-year">{{ e.date.year }}</span>
+                        <div class="timeline-element">
+                            <img src="{{ e.img.url }}" alt="e.event">
+                            <span class="tag">{{ e.event }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-3">
+        <p class="info shadow-util">
+            This is a collection of early games I made in scratch, Alien Tower Defense<sup>[M,D]</sup>,
+            Twig<sup>[M,D]</sup> and Superseed and the Great Oak<sup>[D]</sup>.
+            <br>
+            Superseed and the Great Oak was a game I made with my brother Isaac. I made the music and did the
+            programming
+            while he made the art level design and storyline.
+            <br>
+            Each game uses completely custom art and sounds and programming. I found when making these games, that the
+            hardest parts where not the programming as I was lead to beleve, but rather the art and especially the sound
+            effects and music.
+            <br>
+            <br>
+            M = Mobile Control Support,
+            D = Desktop Control Support.
+            <br>
+            Games imported using <a target="_blank" href="https://turbowarp.org/">TurboWarp</a> embed.
+        </p>
+        <div class="games">
+            <!-- Alien Tower Defense -->
+            <div class="game shadow-util">
+                <iframe src="https://turbowarp.org/569226590/embed"
+                        allowtransparency="true"
+                        frameborder="0"
+                        scrolling="no"
+                        allowfullscreen></iframe>
+                <img src="{% static '/images/games/Alien.png' %}">
+                <button type="button" onclick="loadGame(this)">Play</button>
+                <p class="on instructions shadow-util" onclick="toggle(this)">
+                    Shoot the aliens before they get past the
+                    path.
+                    Click to buy sell and upgrade Tanks.
+                    After starting a round you may not buy or upgrade tanks so be careful
+                </p>
+            </div>
+
+            <!-- Twig -->
+            <div class="game shadow-util">
+                <iframe src="https://turbowarp.org/633699022/embed"
+                        width="499"
+                        height="416"
+                        allowtransparency="true"
+                        frameborder="0"
+                        scrolling="no"
+                        allowfullscreen></iframe>
+                <img src="{% static '/images/games/Twig.png' %}">
+                <button type="button" onclick="loadGame(this)">Play</button>
+                <p class="on instructions shadow-util" onclick="toggle(this)">
+                    Use the arrow keys or on screen buttons to
+                    spin.
+                    Bounce of walls in the direction you are facing.
+                    Try to find the flag as fast as posible.
+                </p>
+            </div>
+
+            <!-- Super Seed -->
+            <div class="game shadow-util">
+                <iframe src="https://turbowarp.org/608597457/embed"
+                        width="499"
+                        height="416"
+                        allowtransparency="true"
+                        frameborder="0"
+                        scrolling="no"
+                        allowfullscreen></iframe>
+                <img src="{% static '/images/games/Superseed.png' %}">
+                <button type="button" onclick="loadGame(this)">Play</button>
+                <p class="on instructions shadow-util" onclick="toggle(this)">
+                    'a' key to open/close map and menu.
+                    Left/Right arrow keys to move.
+                    Up arrow to jump.
+                    Space to interact with npc & advance dialogue.
+                    'x' to shoot (gun power-up needed).
+                    'z' to dash (dash power-up needed).
+                    To save game: Enter save point then copy and past save code.
+                    To load save code: Click "Enter Code" from start screen then paste it in.
+
+                </p>
+            </div>
+
+            <script>
+            var iframes = document.getElementsByTagName("iframe");
+            for (var i = 0; i < iframes.length; i++) {
+                iframes[i].saved_src = iframes[i].src;
+                iframes[i].src = "";
+            }
+
+            function loadGame(e) {
+                var p = e.parentNode;
+                var instructions = p.getElementsByTagName("p")[0];
+                var iframe = p.getElementsByTagName("iframe")[0];
+                var img = p.getElementsByTagName("img")[0];
+                var button = p.getElementsByTagName("button")[0];
+
+                iframe.src = iframe.saved_src;
+                img.style.display = "none"
+                button.style.display = "none"
+
+                if (instructions.classList.contains("on")) {
+                    toggle(instructions)
+                }
+            }
+            </script>
+        </div>
+    </div>
+{% endblock %}

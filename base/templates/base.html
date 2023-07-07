@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    {% load tags %}
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}{% endblock %}
+        Owen Dechow
+    </title>
+
+    <link rel="icon" href="{% static '/images/Favicon.png' %}">
+    <link rel="stylesheet" href="{% static '/css/base.css' %}">
+
+    <script src="//unpkg.com/@ungap/custom-elements">
+        `
+        https://github.com/ungap/custom-elements/tree/master
+        ISC License
+        Copyright (c) 2020, Andrea Giammarchi, @WebReflection
+        `
+    </script>
+
+    <script src="{% static 'js/tags.js' %}"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body style="--prime: {{ start_colors.prime }};
+                 --d-prime: {{ start_colors.d_prime }};
+                 --dark-text: {{ start_colors.dark_text }};
+                 --light-text: {{ start_colors.light_text }};
+                 --background: {{ start_colors.background }};
+                 --title-tag: {{ start_colors.title_tag }}">
+
+    <nav id="nav" class="off no-select main-nav">
+        <button class="open-close-nav off shadow-util" onclick="toggle(this, document.getElementById('nav'))">
+            <div class="nav-btn nav-btn-1" style="--i: 1"></div>
+            <div class="nav-btn nav-btn-2" style="--i: 2"></div>
+            <div class="nav-btn nav-btn-3" style="--i: 3"></div>
+        </button>
+
+        <div class="nav-container">
+            <div class="nav-content">
+
+                <a class="nav-home nav-select" href="/">Owen-Dechow</a>
+
+                <dropdown-area class="color-select-dropdown">
+                    <button is="dropdown-title" class="btn-util nav-select">
+                        Color Select
+                        <dropdown-indicator></dropdown-indicator>
+                    </button>
+                    <dropdown-content class="nav-dropdown-content shadow-util color-select-container">
+                        <form action="" class="color-select">
+                            <fieldset>
+                                {% for color in color_options %}
+                                <label for="theme-{{ color.name }}" style="--prime: {{ color.prime }};
+                                              --d-prime: {{ color.d_prime }};
+                                              --dark-text: {{ color.dark_text }};
+                                              --light-text: {{ color.light_text }};
+                                              --background: {{ color.background }};
+                                              --title-tag: {{ color.title_tag }}">
+                                    <input class="color-option" id="theme-{{ color.name }}" type="radio" name="theme" value="{{ color.name }}" onchange="setColorStyle(this)">
+                                    {{ color.name }}
+                                </label>
+                                {% endfor %}
+                            </fieldset>
+                        </form>
+                    </dropdown-content>
+                </dropdown-area>
+
+                <a class=" nav-select" href="/comp-si">Computer Science</a>
+                <a class="nav-select" href="/contact-form">Contact Form</a>
+
+                <dropdown-area>
+                    {% if user.is_authenticated %}
+
+                    <button is="dropdown-title" class="btn-util nav-select">
+                        {{ user }}
+                        <dropdown-indicator></dropdown-indicator>
+                    </button>
+                    <dropdown-content class="nav-dropdown-content shadow-util">
+                        <div>
+                            <a class="nav-select" href="/account">Account Settings</a>
+                            {% if user.is_superuser %}
+                            <a class="nav-select" href="/site-admin">Site Admin</a>
+                            <a class="nav-select" href="/admin">Django Admin</a>
+                            {% endif %}
+                            <a class="nav-select" href="/auth/logout">Logout</a>
+                        </div>
+                    </dropdown-content>
+
+                    {% else %}
+
+                    <button is="dropdown-title" class="btn-util nav-select">
+                        Admin Login
+                        <dropdown-indicator></dropdown-indicator>
+                    </button>
+                    <dropdown-content class="nav-dropdown-content shadow-util">
+                        <form action="/auth/login/?next={{ request.path }}" method="POST">
+                            {% login_form %}
+                            {% csrf_token %}
+                            <button type="submit">Login</button>
+                            <button type="button" onclick="window.location='{{ request.full_path }}/auth/password_reset'">
+                                Reset Password
+                            </button>
+                        </form>
+                    </dropdown-content>
+
+                    {% endif %}
+                </dropdown-area>
+
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        {% block head %}{% endblock %}
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <div id="cookie-warning" class="cookie shadow-util">
+        <dropdown-area class="left">
+            <button is="dropdown-title" class="btn-util">
+                <h2>
+                    Warning This Website Has Cookies!<dropdown-indicator></dropdown-indicator>
+                </h2>
+            </button>
+            <dropdown-content>
+                <p>
+                    This website utilizes cookies for,
+                    security, authentication, and user experience.
+                    A cookie is used to stop this warning from showing up if you reload.
+                    <b><i>Cookies are not used to collect user data and spy on you!</i></b>
+                </p>
+            </dropdown-content>
+        </dropdown-area>
+        <button class="right" onclick="closeCookieBTN(this.parentNode)">Accept Cookies</button>
+
+    </div>
+
+    <footer>
+        <div>
+
+            <a target="_blank" href="https://www.bible.com/bible/2692/1PE.3.15.NASB2020">
+                <h1>1 Peter 3:15 (NASB-2020)</h1>
+            </a>
+            <type-out id="footer-type-out">
+            </type-out>
+            <br>
+            <br>
+        </div>
+    </footer>
+</body>
+
+</html>

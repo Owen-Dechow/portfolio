@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+<link href="{% static '/css/delete_account.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+{% endblock %}
+
+{% block head %}
+<img src="{% static 'images/headers/my_account.png' %}">
+<h1>Delete Account</h1>
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+
+    {% if message %}
+    <h1>{{message}}</h1>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+
+    <p class="shadow-util">
+        <button type="submit" name="action" value="delete">Delete Account</button>
+        All information associated with your account will be removed.
+        <br>
+        Username will be open for new accounts.
+    </p>
+
+    <p class="shadow-util">
+        <button type="submit" name="action" value="disable">Dissable Account</button>
+        Account will no longer be recognized but data associated with account will not be removed.
+        <br>
+        Username will remain protected.
+    </p>
+    <p class="shadow-util">
+        <button type="button" onclick="window.location='/account'">Cancel</button>
+        Return to Account Settings
+    </p>
+
+    {% endif %}
+
+</form>
+{% endblock %}

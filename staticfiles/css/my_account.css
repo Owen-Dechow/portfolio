@@ -1,0 +1,16 @@
+main form .btn button {
+    display: inline-block;
+}
+
+main form.off .btn button.only-on {
+    display: none;
+}
+
+main form.on .btn button.only-off {
+    display: none;
+}
+
+main form input:disabled,
+main form button:disabled {
+    opacity: 0.7;
+}

@@ -41,4 +41,4 @@ A portfolio website made with the Python Django web framework.
    color.save()
    exit()
    ```
-1. Your all ready to go!
+1. You're all ready to go!

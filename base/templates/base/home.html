@@ -3,63 +3,61 @@
 {% load static %}
 
 {% block stylesheets %}
-    <link href="{% static '/css/home.css' %}" rel="stylesheet">
+<link href="{% static '/css/home.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block head %}
-    <img src="{% static 'images/headers/home.png' %}">
-    <h1>Owen Dechow</h1>
+<img src="{% static 'images/headers/home.png' %}">
+<h1>Owen Dechow</h1>
 {% endblock %}
 
 {% block content %}
 
-    <div class="panel panel-1">
-        <p class="hero shadow-util">Hello, I'm Owen!</p>
-    </div>
+<div class="panel panel-1">
+    <p class="hero shadow-util">
+        Hello, I'm Owen, a high school computer science lover. I plan to go into collage as a
+        computer science major and work in the data science industry. I'm also an active member
+        of my schools FFA chapter, track team and soccer team. Outside of school I am a member of
+        my church and it's youth group.
+    </p>
+</div>
 
-    <div class="panel panel-2">
-        {% for e in stream_elements %}
-            <div class="stream-element shadow-util">
-                {% if e.link %}
-                    <a href="{{ e.link }}">
-                        <h2>{{ e.head }}</h2>
-                        <img src="{{ e.img.url }}">
-                    </a>
-                {% else %}
-                    <h2>{{ e.head }}</h2>
-                    <img src="{{ e.img.url }}">
-                {% endif %}
-                {% if user.is_superuser %}
-                    <a href="delete-stream-element-{{ e.id }}"
-                       class="delete-stream-element-link">Delete Stream Element</a>
-                {% endif %}
-            </div>
-        {% endfor %}
+<div class="panel panel-2">
+    {% for e in stream_elements %}
+    <div class="stream-element shadow-util">
+        {% if e.link %}
+        <a href="{{ e.link }}">
+            <h2>{{ e.head }}</h2>
+            <img src="{{ e.img.url }}">
+        </a>
+        {% else %}
+        <h2>{{ e.head }}</h2>
+        <img src="{{ e.img.url }}">
+        {% endif %}
         {% if user.is_superuser %}
-            <form class="shadow-util stream-element-form"
-                  method="POST"
-                  enctype="multipart/form-data"
-                  action="">
-                {% csrf_token %}
-                {{ form }}
-                <img id="stream-element-form-image"
-                     class="stream-element-form-image"
-                     src="#"
-                     style="display:none">
-                <script>
-                    let imgIpt = document.getElementById("id_img");
-                    imgIpt.onchange = event => {
-                        const [file] = imgIpt.files;
-                        if (file) {
-                            let imgTag = document.getElementById("stream-element-form-image");
-                            imgTag.src = URL.createObjectURL(file);
-                            imgTag.style.display = "block";
-                        }
-                    }
-                </script>
-                <button type="submit">Add Element</button>
-            </form>
+        <a href="delete-stream-element-{{ e.id }}" class="delete-stream-element-link">Delete Stream Element</a>
         {% endif %}
     </div>
+    {% endfor %}
+    {% if user.is_superuser %}
+    <form class="shadow-util stream-element-form" method="POST" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        {{ form }}
+        <img id="stream-element-form-image" class="stream-element-form-image" src="#" style="display:none">
+        <script>
+            let imgIpt = document.getElementById("id_img");
+            imgIpt.onchange = event => {
+                const [file] = imgIpt.files;
+                if (file) {
+                    let imgTag = document.getElementById("stream-element-form-image");
+                    imgTag.src = URL.createObjectURL(file);
+                    imgTag.style.display = "block";
+                }
+            }
+        </script>
+        <button type="submit">Add Element</button>
+    </form>
+    {% endif %}
+</div>
 
 {% endblock %}

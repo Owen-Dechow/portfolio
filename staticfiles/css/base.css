@@ -20,8 +20,10 @@ body {
 
 /* Navigation */
 @media screen {
+
     /* Base */
     @media screen {
+
         /* top bar */
         @media screen {
             nav {
@@ -75,20 +77,16 @@ body {
                 box-shadow: none;
                 appearance: none;
                 border-radius: 2.5px;
-                background: linear-gradient(
-                    45deg,
-                    var(--dark-text) 33%,
-                    var(--background) 33% 66%,
-                    var(--title-tag) 66%
-                );
+                background: linear-gradient(45deg,
+                        var(--dark-text) 33%,
+                        var(--background) 33% 66%,
+                        var(--title-tag) 66%);
             }
 
             nav .color-select label {
-                background-image: linear-gradient(
-                    -45deg,
-                    var(--prime) 50%,
-                    var(--d-prime) 50%
-                );
+                background-image: linear-gradient(-45deg,
+                        var(--prime) 50%,
+                        var(--d-prime) 50%);
 
                 color: var(--light-text);
                 align-items: center;
@@ -144,22 +142,22 @@ body {
                 translate: 0 5px;
             }
 
-            nav .nav-dropdown-content > * {
+            nav .nav-dropdown-content>* {
                 display: flex;
                 flex-direction: column;
                 width: max-content;
                 background-color: var(--prime);
             }
 
-            nav .nav-dropdown-content > form {
+            nav .nav-dropdown-content>form {
                 padding: 10px;
             }
 
-            nav .nav-dropdown-content > form input {
+            nav .nav-dropdown-content>form input {
                 margin-bottom: 10px;
             }
 
-            nav .nav-dropdown-content > form button {
+            nav .nav-dropdown-content>form button {
                 margin-bottom: 5px;
             }
         }
@@ -167,6 +165,7 @@ body {
 
     /* Small */
     @media (max-width: 50em) {
+
         /* open close btn */
         @media screen {
             nav .open-close-nav {
@@ -228,7 +227,7 @@ body {
             }
         }
 
-        /* noramal area */
+        /* normal area */
         @media screen {
             nav {
                 position: fixed;
@@ -237,6 +236,7 @@ body {
                 width: 0;
                 height: 100%;
                 background-color: var(--transparent);
+                -webkit-backdrop-filter: var(--blur);
                 backdrop-filter: var(--blur);
                 transition-duration: 0.5s;
             }
@@ -393,6 +393,7 @@ main {
 
 /* input-standard */
 @media screen {
+
     textarea,
     input,
     button:not(btn-util) {

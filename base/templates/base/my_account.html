@@ -2,73 +2,87 @@
 {% load static %}
 
 {% block stylesheets %}
-<link href="{% static '/css/auth_base.css' %}" rel="stylesheet">
-<link href="{% static '/css/my_account.css' %}" rel="stylesheet">
+    <link href="{% static '/css/auth_base.css' %}" rel="stylesheet">
+    <link href="{% static '/css/my_account.css' %}" rel="stylesheet">
 {% endblock %}
 
-{% block title %}
-My Account
-{% endblock %}
+{% block title %}My Account{% endblock %}
 
 {% block head %}
-<img src="{% static 'images/headers/my_account.png' %}">
-<h1>Account Settings</h1>
+    <img src="{% static 'images/headers/my_account.png' %}" alt="header image">
+    <h1>Account Settings</h1>
 {% endblock %}
 
 {% block content %}
-<form method="POST" class="off">
+    <form method="POST" class="off">
 
-    {% csrf_token %}
+        {% csrf_token %}
 
-    <label for="username">Username:</label>
-    <input type="text" id="username" value="{{user}}" disabled>
-    <br>
+        <label for="username">Username:</label>
+        <input type="text" id="username" value="{{ user }}" disabled>
+        <br>
 
-    {{ form.email.label_tag }}
-    <input class="toggle" type="email" id="{{form.email.id_for_label}}" name="{{form.email.name}}"
-        value="{{user.email}}" disabled>
-    {{ form.email.errors }}
-    <br>
+        {{ form.email.label_tag }}
+        <input class="toggle"
+               type="email"
+               id="{{ form.email.id_for_label }}"
+               name="{{ form.email.name }}"
+               value="{{ user.email }}"
+               disabled>
+        {{ form.email.errors }}
+        <br>
 
-    {{ form.first_name.label_tag }}
-    <input class="toggle" type="text" id="{{form.first_name.id_for_label}}" name="{{form.first_name.name}}"
-        value="{{user.first_name}}" disabled>
-    {{ form.first_name.errors }}
-    <br>
+        {{ form.first_name.label_tag }}
+        <input class="toggle"
+               type="text"
+               id="{{ form.first_name.id_for_label }}"
+               name="{{ form.first_name.name }}"
+               value="{{ user.first_name }}"
+               disabled>
+        {{ form.first_name.errors }}
+        <br>
 
-    {{ form.last_name.label_tag }}
-    <input class="toggle" type="text" id="{{form.last_name.id_for_label}}" name="{{form.last_name.name}}"
-        value="{{user.last_name}}" disabled>
-    {{ form.last_name.errors }}
-    <br>
+        {{ form.last_name.label_tag }}
+        <input class="toggle"
+               type="text"
+               id="{{ form.last_name.id_for_label }}"
+               name="{{ form.last_name.name }}"
+               value="{{ user.last_name }}"
+               disabled>
+        {{ form.last_name.errors }}
+        <br>
 
-    <div class="btn">
-        <button type="button" class="toggle" onclick="window.location = '/auth/password_change/'" disabled>
-            Change Password
-        </button>
-        <button type="button" class="toggle" onclick="window.location = '/auth/delete_account/'" disabled>
-            Delete Account
-        </button>
-    </div>
-    <br>
+        <div class="btn">
+            <button type="button"
+                    class="toggle"
+                    onclick="window.location = '/auth/password_change/'"
+                    disabled>Change Password</button>
+            <button type="button"
+                    class="toggle"
+                    onclick="window.location = '/auth/delete_account/'"
+                    disabled>Delete Account</button>
+        </div>
+        <br>
 
-    <div class="btn">
-        <button class="only-on" type="submit">Save Changes</button>
-        <button onclick="toggle(this.parentNode.parentNode); toggleForm(this.parentNode.parentNode, true)"
-            class="only-on" type="button">Cancel</button>
-        <button onclick="toggle(this.parentNode.parentNode); toggleForm(this.parentNode.parentNode, false)"
-            class="only-off" type="button">Edit</button>
-    </div>
+        <div class="btn">
+            <button class="only-on" type="submit">Save Changes</button>
+            <button onclick="toggle(this.parentNode.parentNode); toggleForm(this.parentNode.parentNode, true)"
+                    class="only-on"
+                    type="button">Cancel</button>
+            <button onclick="toggle(this.parentNode.parentNode); toggleForm(this.parentNode.parentNode, false)"
+                    class="only-off"
+                    type="button">Edit</button>
+        </div>
 
-</form>
+    </form>
 
-<script>
+    <script>
     function toggleForm(form, disabled) {
         var toggles = form.getElementsByClassName("toggle");
         for (var i = 0; i < toggles.length; i++) {
             toggles[i].disabled = disabled
         }
     }
-</script>
+    </script>
 
 {% endblock %}

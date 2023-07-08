@@ -25,5 +25,4 @@ urlpatterns = [
     path("auth/", include("base.urls_auth")),
 ]
 
-
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

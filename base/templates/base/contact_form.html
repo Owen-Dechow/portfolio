@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
-
 {% load static %}
-
 
 {% block title %}Contact Form{% endblock %}
 
@@ -10,7 +8,7 @@
 {% endblock %}
 
 {% block head %}
-    <img src="{% static '/images/headers/mail.png' %}">
+    <img src="{% static '/images/headers/mail.png' %}" alt="header image">
     <h1>Contact Me!</h1>
 {% endblock %}
 
@@ -44,7 +42,7 @@
 
         <label for="message">Message:</label>
         <textarea id="message" name="message" required placeholder="Tab to indent"></textarea>
- 
+
         <script>
         document.getElementById("message").addEventListener("keydown", function (e) {
             if (e.key == 'Tab') {

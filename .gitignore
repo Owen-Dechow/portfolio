@@ -152,8 +152,9 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# Database
-*.sqlite3
+# User Additions
+.vscode/
+db.sqlite3
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can

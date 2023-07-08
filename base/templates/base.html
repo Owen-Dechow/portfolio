@@ -18,7 +18,7 @@
     <link rel="icon" href="{% static '/images/favicon.ico' %}">
     <link rel="stylesheet" href="{% static '/css/base.css' %}">
 
-    <script src="//unpkg.com/@ungap/custom-elements">
+    <script src="https://unpkg.com/@ungap/custom-elements">
         `
         https://github.com/ungap/custom-elements/tree/master
         ISC License
@@ -40,7 +40,8 @@
                  --title-tag: {{ start_colors.title_tag }}">
 
     <nav id="nav" class="off no-select main-nav">
-        <button class="open-close-nav off shadow-util" onclick="toggle(this, document.getElementById('nav'))">
+        <button class="open-close-nav off shadow-util" onclick="toggle(this, document.getElementById('nav'))"
+            title="toggle navigation menu">
             <div class="nav-btn nav-btn-1" style="--i: 1"></div>
             <div class="nav-btn nav-btn-2" style="--i: 2"></div>
             <div class="nav-btn nav-btn-3" style="--i: 3"></div>
@@ -66,7 +67,8 @@
                                               --light-text: {{ color.light_text }};
                                               --background: {{ color.background }};
                                               --title-tag: {{ color.title_tag }}">
-                                    <input class="color-option" id="theme-{{ color.name }}" type="radio" name="theme" value="{{ color.name }}" onchange="setColorStyle(this)">
+                                    <input class="color-option" id="theme-{{ color.name }}" type="radio" name="theme"
+                                        value="{{ color.name }}" onchange="setColorStyle(this)">
                                     {{ color.name }}
                                 </label>
                                 {% endfor %}
@@ -107,7 +109,8 @@
                             {% login_form %}
                             {% csrf_token %}
                             <button type="submit">Login</button>
-                            <button type="button" onclick="window.location='{{ request.full_path }}/auth/password_reset'">
+                            <button type="button"
+                                onclick="window.location='{{ request.full_path }}/auth/password_reset'">
                                 Reset Password
                             </button>
                         </form>

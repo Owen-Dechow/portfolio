@@ -155,6 +155,7 @@ cython_debug/
 # User Additions
 .vscode/
 db.sqlite3
+.DS_STORE
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can

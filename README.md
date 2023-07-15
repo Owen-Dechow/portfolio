@@ -8,9 +8,10 @@ A portfolio website made with the Python Django web framework.
    git clone https://github.com/Owen-Dechow/portfolio.git
    cd portfolio
    ```
-1. Create virtual environment
+1. Create/activate virtual environment
     ```bash
     python3 -m venv venv
+    ./venv/bin/activate
     ```
 1. Install dependencies
     ```bash

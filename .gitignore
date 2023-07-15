@@ -156,6 +156,8 @@ cython_debug/
 .vscode/
 db.sqlite3
 .DS_STORE
+media/stream_images
+media/timeline_images
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can

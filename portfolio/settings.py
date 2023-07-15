@@ -44,17 +44,19 @@ INSTALLED_APPS = [
     "base",
 ]
 
-MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "base.middleware.AcceptRangeMiddleware",
-]
+MIDDLEWARE = (
+    ["django.middleware.security.SecurityMiddleware"]
+    + (["whitenoise.middleware.WhiteNoiseMiddleware"] if not DEBUG else [])
+    + [
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+        "django.middleware.clickjacking.XFrameOptionsMiddleware",
+        "base.middleware.AcceptRangeMiddleware",
+    ]
+)
 
 ROOT_URLCONF = "portfolio.urls"
 
@@ -124,7 +126,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = "staticfiles/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / "staticfiles",
+    ]
+else:
+    STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

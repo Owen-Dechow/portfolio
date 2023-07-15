@@ -42,4 +42,8 @@ A portfolio website made with the Python Django web framework.
    color.save()
    exit()
    ```
-1. You're all ready to go!
+1. Run Tests
+   ```bash
+   python3 ./manage.py test
+   ```
+1. **Customize your website!**

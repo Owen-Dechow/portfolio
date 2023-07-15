@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
+from django.core.handlers.wsgi import WSGIRequest
 from . import forms as forms
 from . import models
 from django.conf import settings
@@ -35,23 +36,27 @@ def home(request):
     return render(request, "base/home.html", args)
 
 
-def contact_form(request):
+def contact_form(request: WSGIRequest):
     if request.method == "POST":
         f = request.POST
         try:
+            subject = f"{request.get_host()} [{f['email']}]"
+            content = (
+                f"\nFrom: {f['name']} [{f['email']}]"
+                + f"\nSubject: {f['subject']}"
+                + f"\n{'-'*100}"
+                + f"\n{f['message']}"
+            )
+
             send_mail(
-                f"WEBSITE MESSAGE: {f['name']}",
-                f"""
-                From: {f['name']} ({request.user.email})
-                
-                {f['message']}
-                """,
+                subject,
+                content,
                 settings.EMAIL_HOST_USER,
                 [settings.EMAIL_HOST_USER],
                 fail_silently=False,
             )
             m = 1
-        except:
+        except Exception:
             m = 2
 
         return redirect(f"{request.path}?success={m}")

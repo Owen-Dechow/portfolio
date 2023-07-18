@@ -1,4 +1,5 @@
 from django.test import TestCase, override_settings
+from django import test
 from django.core.files.uploadedfile import SimpleUploadedFile
 from base import models
 from datetime import datetime
@@ -7,15 +8,25 @@ import shutil
 
 # Create your tests here.
 class Comp_SiLanguageKnown(TestCase):
+    def setUp(self):
+        print("Testing model Comp_SiLanguageKnown")
+
     def test_object_create(self):
+        print("Testing object creation")
+
         models.Comp_SiLanguageKnown.objects.create(name="Test_HTML", skill=0)
         models.Comp_SiLanguageKnown.objects.create(name="Test_CSS", skill=50)
         models.Comp_SiLanguageKnown.objects.create(name="Test_JS", skill=100)
 
 
 class StreamElement(TestCase):
+    def setUp(self):
+        print("Testing model StreamElement")
+
     @override_settings(MEDIA_ROOT="media_test")
     def test_object_create(self):
+        print("Testing object creation")
+
         models.StreamElement.objects.create(
             head="Test 1",
             link="https://github.com/Owen-Dechow",
@@ -40,8 +51,13 @@ class StreamElement(TestCase):
 
 
 class Comp_SiTimeLineElement(TestCase):
+    def setUp(self):
+        print(f"Testing model Comp_SiTimeLineElement")
+
     @override_settings(MEDIA_ROOT="media_test")
     def test_object_create(self):
+        print(f"Testing object creation")
+
         models.Comp_SiTimeLineElement.objects.create(
             event="Test",
             img=SimpleUploadedFile(
@@ -66,7 +82,12 @@ class Comp_SiTimeLineElement(TestCase):
 
 
 class Base_ColorPalette(TestCase):
+    def setUp(self):
+        print(f"Testing model Base_ColorPalette")
+
     def test_object_create(self):
+        print(f"Testing object creation")
+
         models.Base_ColorPalette.objects.create(
             name="Default Test",
         )

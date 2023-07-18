@@ -1,32 +1,23 @@
-from django.test import TestCase, override_settings
-from django import test
+from django.test import TestCase, Client, override_settings
+from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 from base import models
 from datetime import datetime
+import json
 import shutil
 
 
 # Create your tests here.
-class Comp_SiLanguageKnown(TestCase):
-    def setUp(self):
-        print("Testing model Comp_SiLanguageKnown")
-
+class TestComp_SiLanguageKnown(TestCase):
     def test_object_create(self):
-        print("Testing object creation")
-
         models.Comp_SiLanguageKnown.objects.create(name="Test_HTML", skill=0)
         models.Comp_SiLanguageKnown.objects.create(name="Test_CSS", skill=50)
         models.Comp_SiLanguageKnown.objects.create(name="Test_JS", skill=100)
 
 
-class StreamElement(TestCase):
-    def setUp(self):
-        print("Testing model StreamElement")
-
+class TestStreamElement(TestCase):
     @override_settings(MEDIA_ROOT="media_test")
     def test_object_create(self):
-        print("Testing object creation")
-
         models.StreamElement.objects.create(
             head="Test 1",
             link="https://github.com/Owen-Dechow",
@@ -50,14 +41,9 @@ class StreamElement(TestCase):
         shutil.rmtree("media_test")
 
 
-class Comp_SiTimeLineElement(TestCase):
-    def setUp(self):
-        print(f"Testing model Comp_SiTimeLineElement")
-
+class TestComp_SiTimeLineElement(TestCase):
     @override_settings(MEDIA_ROOT="media_test")
     def test_object_create(self):
-        print(f"Testing object creation")
-
         models.Comp_SiTimeLineElement.objects.create(
             event="Test",
             img=SimpleUploadedFile(
@@ -81,13 +67,10 @@ class Comp_SiTimeLineElement(TestCase):
         shutil.rmtree("media_test")
 
 
-class Base_ColorPalette(TestCase):
-    def setUp(self):
-        print(f"Testing model Base_ColorPalette")
+class TestBase_ColorPalette(TestCase):
+    fixtures = ["colors"]
 
     def test_object_create(self):
-        print(f"Testing object creation")
-
         models.Base_ColorPalette.objects.create(
             name="Default Test",
         )
@@ -101,3 +84,57 @@ class Base_ColorPalette(TestCase):
             light_text="hsl(0, 0%, 0%)",
             title_tag="hwb(0 0% 100%)",
         )
+
+    def test_fixtures(self):
+        self.assertGreater(models.Base_ColorPalette.objects.count(), 0)
+
+
+class TestViews(TestCase):
+    fixtures = ["colors"]
+
+    @override_settings(MEDIA_ROOT="media_test")
+    def setUp(self):
+        self.client = Client()
+
+        self.client_authenticated = Client()
+        self.client_authenticated.login()
+
+        self.test_stream_element = models.StreamElement.objects.create(
+            head="Test 1",
+            link="https://github.com/Owen-Dechow",
+            img=SimpleUploadedFile(
+                name="test_image.jpg",
+                content=open("media/test_img1.jpg", "rb").read(),
+                content_type="image/jpeg",
+            ),
+        )
+
+    def test_comp_si(self):
+        response = self.client.get(reverse("comp-si"))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "base/comp_si.html")
+
+    def test_home(self):
+        response = self.client.get(reverse("home"))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "base/home.html")
+
+    def test_account(self):
+        # Should redirect client to login page
+        response = self.client_authenticated.get(reverse("account"))
+        self.assertEquals(response.status_code, 302)
+        self.assertTemplateNotUsed(response, "base/my_account")
+
+    def test_contact_form(self):
+        response = self.client.get(reverse("contact-form"))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "base/contact_form.html")
+
+    def test_delete_stream_element(self):
+        # Should redirect client to login page
+        response = self.client.get(
+            reverse("delete-stream-element", kwargs={"element": 1})
+        )
+        self.assertEquals(response.status_code, 302)
+        self.assertTemplateNotUsed(response, "base/home.html")
+        self.assertNotEquals(self.test_stream_element.id, 0)

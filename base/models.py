@@ -46,8 +46,8 @@ class Base_ColorPalette(models.Model):
     background = models.CharField(max_length=25, default="#d3d3d3")
     prime = models.CharField(max_length=25, default="#3e88ff")
     d_prime = models.CharField(max_length=25, default="#216fec")
-    dark_text = models.CharField(max_length=25, default="#eeeeee")
-    light_text = models.CharField(max_length=25, default="#404040")
+    dark_text = models.CharField(max_length=25, default="#404040")
+    light_text = models.CharField(max_length=25, default="#eeeeee")
     title_tag = models.CharField(max_length=25, default="#980000")
 
     def __str__(self):

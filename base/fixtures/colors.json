@@ -1,0 +1,28 @@
+[
+    {
+        "model": "base.base_colorpalette",
+        "pk": 1,
+        "fields": {
+            "name": "Original Light",
+            "background": "#d3d3d3",
+            "prime": "#3e88ff",
+            "d_prime": "#216fec",
+            "dark_text": "#404040",
+            "light_text": "#eeeeee",
+            "title_tag": "#980000"
+        }
+    },
+    {
+        "model": "base.base_colorpalette",
+        "pk": 3,
+        "fields": {
+            "name": "Original Dark",
+            "background": "#012a30",
+            "prime": "#002f3a",
+            "d_prime": "#00414c",
+            "dark_text": "brown",
+            "light_text": "lightgrey",
+            "title_tag": "brown"
+        }
+    }
+]

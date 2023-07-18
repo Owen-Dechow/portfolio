@@ -30,5 +30,6 @@ urlpatterns = [
     path(
         "delete-stream-element-<int:element>",
         views.delete_stream_element,
+        name="delete-stream-element",
     ),
 ]

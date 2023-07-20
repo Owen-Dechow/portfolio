@@ -138,3 +138,6 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 302)
         self.assertTemplateNotUsed(response, "base/home.html")
         self.assertNotEquals(self.test_stream_element.id, 0)
+
+    def tearDown(self):
+        shutil.rmtree("media_test")

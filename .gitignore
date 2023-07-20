@@ -4,3 +4,4 @@ db.sqlite3
 .DS_STORE
 media/
 media_test/
+venv/

@@ -3,7 +3,6 @@ from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 from base import models
 from datetime import datetime
-import json
 import shutil
 
 

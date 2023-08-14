@@ -12,32 +12,32 @@ customElements.define("type-out", class extends HTMLElement {
     connectedCallback() {
         this.style.setProperty("padding-right", "2px");
         this.style.setProperty("border-right", "2px solid");
-        this.blink = false
+        this.blink = false;
         setInterval(() => {
             if (this.blink) {
-                this.style.setProperty("border-right-color", "transparent")
+                this.style.setProperty("border-right-color", "transparent");
             } else {
-                this.style.setProperty("border-right-color", "inherit")
+                this.style.setProperty("border-right-color", "inherit");
             }
             this.blink = !this.blink;
-        }, 500)
+        }, 500);
     }
 
     static get observedAttributes() {
-        return ["value"]
+        return ["value"];
     }
 
     attributeChangedCallback(name, oldValue, newVal) {
         if (name == "value") {
             this.speed = this.getAttribute("speed");
-            if (this.speed == undefined) { this.speed = 0.1 }
+            if (this.speed == undefined) { this.speed = 0.1; }
             this.text = newVal;
             this.idx = 0;
             this.textContent = "";
             this.done = false;
             this.intervalPaused = false;
             this.interval = setInterval(() => {
-                if (this.intervalPaused) { return }
+                if (this.intervalPaused) { return; }
 
                 this.textContent += this.text[this.idx];
                 this.idx += 1;
@@ -179,20 +179,20 @@ customElements.define("dropdown-title", class extends HTMLButtonElement {
             var indicator = area.getElementsByTagName("dropdown-indicator")[0];
 
             var open = this.getAttribute("open") == "true";
-            var height = this.getHeight(content)
+            var height = this.getHeight(content);
 
             if (content.interval) {
-                clearInterval(content.interval)
+                clearInterval(content.interval);
             }
 
             content.style.setProperty("--height", height + "px");
 
             setTimeout(() => {
-                this.setAttribute("open", !open)
+                this.setAttribute("open", !open);
                 area.setAttribute("open", !open);
                 content.setAttribute("open", !open);
                 if (indicator) { indicator.setAttribute("open", !open); }
-            }, 0)
+            }, 0);
 
         });
 
@@ -221,7 +221,7 @@ customElements.define("dropdown-content", class extends HTMLElement {
     }
 
     connectedCallback() {
-        this.setAttribute("open", "false")
+        this.setAttribute("open", "false");
     }
 
     static get observedAttributes() {
@@ -254,4 +254,4 @@ customElements.define("dropdown-indicator", class extends HTMLElement {
     connectedCallback() {
         this.setAttribute("open", "false");
     }
-})
+});

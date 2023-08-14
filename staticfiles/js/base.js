@@ -84,7 +84,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
             document
                 .getElementById("footer-type-out")
                 .setAttribute("value", footerText);
-            window.onscroll = () => {};
+            window.onscroll = () => { };
         }
     };
     // console.log(document.body.offsetHeight)

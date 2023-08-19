@@ -26,7 +26,7 @@
         {% for e in stream_elements %}
             <div class="stream-element shadow-util">
                 {% if e.link %}
-                    <a href="{{ e.link }}">
+                    <a target="_blank" href="{{ e.link }}">
                         <h2>{{ e.head }}</h2>
                         <img alt="{{ e.head }} image" src="{{ e.img.url }}">
                     </a>

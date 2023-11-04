@@ -55,3 +55,8 @@ class Base_ColorPalette(models.Model):
 
     class Meta:
         verbose_name = "Color palette"
+
+
+class Art(models.Model):
+    alt = models.CharField(max_length=256, default="image")
+    img = models.ImageField(upload_to="artwork_images")

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+<link href="{% static '/css/artwork.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+Artwork |
+{% endblock %}
+
+{% block head %}
+<img src="{% static 'images/headers/art.jpg' %}" alt="header image">
+<h1>My Art</h1>
+{% endblock %}
+
+{% block content %}
+<div class="waterfall">
+    {% for img in imgs %}
+    <div class="img shadow-util">
+        <img src="{{img.img.url}}" alt="{{img.alt}}" loading="lazy">
+        <span>
+            {{img.alt}}
+            {% if user.is_superuser %}
+            <a href="/artwork-delete/{{img.id}}">X</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

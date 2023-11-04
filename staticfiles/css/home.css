@@ -20,18 +20,53 @@ main .cross-section {
     display: grid;
     margin-top: 10px;
     gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 main .navset {
     overflow: hidden;
-    padding: 10px;
     border-radius: 5px;
     background-color: var(--prime);
+    display: flex;
+    align-items: center;
+    height: 100px;
+}
+
+@media (max-width: 1140px) and (min-width: 571px) {
+    main .navset {
+        flex-direction: column;
+        height: auto;
+        text-align: center;
+    }
+
+    main .navset img {
+        width: 100%
+    }
+
+
+}
+
+@media (max-width: 570px) {
+    main .cross-section {
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(3, 100px);
+    }
 }
 
 main .navset a {
     color: var(--light-text);
     text-decoration: none;
+    margin-left: 5px;
+    font-size: 2rem;
+    width: min-content;
+}
+
+main .navset:hover {
+    text-decoration: underline;
+}
+
+main .navset img {
+    height: 100%;
 }
 
 /* 2nd panel */

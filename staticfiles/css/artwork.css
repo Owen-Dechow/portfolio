@@ -1,0 +1,54 @@
+main .waterfall {
+    --gap: 20px;
+    column-count: 3;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: var(--gap);
+    padding: var(--gap);
+}
+
+main .img {
+    display: flex;
+    margin-bottom: var(--gap);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+main img {
+    width: 100%;
+}
+
+main span {
+    display: block;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    text-transform: uppercase;
+    text-shadow: var(--box-shadow);
+}
+
+main span a {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+@media (max-width: 1000px) {
+    main .waterfall {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 500px) {
+    main .waterfall {
+        column-count: 1;
+    }
+}

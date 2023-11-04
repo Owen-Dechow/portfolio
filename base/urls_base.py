@@ -14,6 +14,17 @@ urlpatterns = [
         views.comp_si,
         name="comp-si",
     ),
+    # my art
+    path(
+        "artwork",
+        views.artwork,
+        name="artwork",
+    ),
+    path(
+        "artwork-delete/<int:element>",
+        views.artwork_delete,
+        name="delete-artwork",
+    ),
     # accounts
     path(
         "account/",

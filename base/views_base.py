@@ -87,8 +87,19 @@ def my_account(request):
 @login_required()
 def delete_stream_element(request, element):
     if request.user.is_superuser:
-        try:
-            models.StreamElement.objects.get(id=element).delete()
-        except Exception as e:
-            raise e
+        models.StreamElement.objects.get(id=element).delete()
+
     return redirect("/")
+
+
+def artwork(request):
+    args = {"imgs": models.Art.objects.all()[::-1]}
+    return render(request, "base/artwork.html", args)
+
+
+@login_required()
+def artwork_delete(request, element):
+    if request.user.is_superuser:
+        models.Art.objects.get(id=element).delete()
+
+    return redirect("/artwork")

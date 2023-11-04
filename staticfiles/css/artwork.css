@@ -24,9 +24,11 @@ main span {
     display: block;
     position: absolute;
     bottom: 5px;
-    left: 5px;
+    left: 0;
+    padding: 5px;
     text-transform: uppercase;
-    text-shadow: var(--box-shadow);
+    background-color: var(--d-prime);
+    border-radius: 0 10px 10px 0;
 }
 
 main span a {
@@ -51,4 +53,16 @@ main span a {
     main .waterfall {
         column-count: 1;
     }
+}
+
+main form {
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    background-color: var(--d-prime);
+}
+
+main form input {
+    margin-top: 2px;
+    margin-bottom: 10px;
 }

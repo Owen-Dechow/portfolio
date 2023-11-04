@@ -93,7 +93,13 @@ def delete_stream_element(request, element):
 
 
 def artwork(request):
-    args = {"imgs": models.Art.objects.all()[::-1]}
+    if request.method == "POST":
+        form = forms.AddArt(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+    else:
+        form = forms.AddArt()
+    args = {"imgs": models.Art.objects.all()[::-1], "form": form}
     return render(request, "base/artwork.html", args)
 
 

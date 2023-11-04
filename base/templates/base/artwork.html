@@ -14,12 +14,22 @@ Artwork |
 <h1>My Art</h1>
 {% endblock %}
 
+
 {% block content %}
+
+{% if user.is_superuser %}
+<form method="POST" enctype="multipart/form-data" action="">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">Add Art</button>
+</form>
+{% endif %}
+
 <div class="waterfall">
     {% for img in imgs %}
     <div class="img shadow-util">
         <img src="{{img.img.url}}" alt="{{img.alt}}" loading="lazy">
-        <span>
+        <span class="shadow-util">
             {{img.alt}}
             {% if user.is_superuser %}
             <a href="/artwork-delete/{{img.id}}">X</a>

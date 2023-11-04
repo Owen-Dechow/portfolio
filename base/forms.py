@@ -38,3 +38,9 @@ class AddStreamElementForm(forms.ModelForm):
     class Meta:
         model = models.StreamElement
         fields = ("head", "link", "img")
+
+
+class AddArt(forms.ModelForm):
+    class Meta:
+        model = models.Art
+        fields = {"alt", "img"}

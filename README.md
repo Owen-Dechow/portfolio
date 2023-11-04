@@ -24,7 +24,6 @@ A portfolio website made with the Python Django web framework.
    ```bash
    .
    ├── base/
-   ├── media/
    ├── portfolio/
    ├── ├── .env.example    # copy this file into new .env file
    ├── └── .env            # new file

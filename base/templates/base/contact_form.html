@@ -4,46 +4,43 @@
 {% block title %}Contact Form{% endblock %}
 
 {% block stylesheets %}
-    <link href="{% static '/css/contact_form.css' %}" rel="stylesheet">
+<link href="{% static '/css/contact_form.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block head %}
-    <img src="{% static '/images/headers/mail.png' %}" alt="header image">
-    <h1>Contact Me!</h1>
+<img src="{% static '/images/headers/mail.png' %}" alt="header image">
+<h1>Contact Me!</h1>
 {% endblock %}
 
 {% block content %}
-    <sending-tag id="sending-tag"></sending-tag>
+<sending-tag id="sending-tag"></sending-tag>
 
-    <form method="POST"
-          class="off"
-          action="{{ request.path }}"
-          onsubmit="document.getElementById('sending-tag').setAttribute('on', true)">
-        {% csrf_token %}
-        <h1>
-            {% if message == '1' %}
-                Yippie, message was sent successfully!
-            {% elif message == '2' %}
-                Oh No! There was and error sending message, please try again!
-            {% else %}
-                Contact Me!
-            {% endif %}
-        </h1>
-        <p>Note: Any message you send is linked to your email, any response will be sent over email.</p>
+<form method="POST" class="off" action="{{ request.path }}" onsubmit="document.getElementById('sending-tag').setAttribute('on', true)">
+    {% csrf_token %}
+    <h1>
+        {% if message == '1' %}
+        Yippie, message was sent successfully!
+        {% elif message == '2' %}
+        Oh No! There was and error sending message, please try again!
+        {% else %}
+        Contact Me!
+        {% endif %}
+    </h1>
+    <p>Note: Any message you send is linked to your email, any response will be sent over email.</p>
 
-        <label for="name">Name:</label>
-        <input id="name" name="name" required placeholder="John Doe">
+    <label for="name">Name:</label>
+    <input id="name" name="name" required placeholder="John Doe">
 
-        <label for="email">Email:</label>
-        <input id="email" name="email" required placeholder="example@gmail.com">
+    <label for="email">Email:</label>
+    <input id="email" name="email" required placeholder="example@gmail.com">
 
-        <label for="message">Subject:</label>
-        <input id="subject" name="subject" required placeholder="Enter Subject">
+    <label for="message">Subject:</label>
+    <input id="subject" name="subject" required placeholder="Enter Subject">
 
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" required placeholder="Tab to indent"></textarea>
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" required placeholder="Tab to indent"></textarea>
 
-        <script>
+    <script>
         document.getElementById("message").addEventListener("keydown", function (e) {
             if (e.key == 'Tab') {
                 e.preventDefault();
@@ -57,8 +54,8 @@
                     this.selectionEnd = start + 1;
             }
         })
-        </script>
+    </script>
 
-        <button type="submit">Send</button>
-    </form>
+    <button type="submit">Send</button>
+</form>
 {% endblock %}

@@ -40,8 +40,7 @@
                  --title-tag: {{ start_colors.title_tag }}">
 
     <nav id="nav" class="off no-select main-nav">
-        <button class="open-close-nav off shadow-util" onclick="toggle(this, document.getElementById('nav'))"
-            title="toggle navigation menu">
+        <button class="open-close-nav off shadow-util" onclick="toggle(this, document.getElementById('nav'))" title="toggle navigation menu">
             <div class="nav-btn nav-btn-1" style="--i: 1"></div>
             <div class="nav-btn nav-btn-2" style="--i: 2"></div>
             <div class="nav-btn nav-btn-3" style="--i: 3"></div>
@@ -67,8 +66,7 @@
                                               --light-text: {{ color.light_text }};
                                               --background: {{ color.background }};
                                               --title-tag: {{ color.title_tag }}">
-                                    <input class="color-option" id="theme-{{ color.name }}" type="radio" name="theme"
-                                        value="{{ color.name }}" onchange="setColorStyle(this)">
+                                    <input class="color-option" id="theme-{{ color.name }}" type="radio" name="theme" value="{{ color.name }}" onchange="setColorStyle(this)">
                                     {{ color.name }}
                                 </label>
                                 {% endfor %}
@@ -76,9 +74,6 @@
                         </form>
                     </dropdown-content>
                 </dropdown-area>
-
-                <a class=" nav-select" href="/comp-si">Computer Science</a>
-                <a class="nav-select" href="/contact-form">Contact Form</a>
 
                 <dropdown-area>
                     {% if user.is_authenticated %}
@@ -109,8 +104,7 @@
                             {% login_form %}
                             {% csrf_token %}
                             <button type="submit">Login</button>
-                            <button type="button"
-                                onclick="window.location='{{ request.full_path }}/auth/password_reset'">
+                            <button type="button" onclick="window.location='{{ request.full_path }}/auth/password_reset'">
                                 Reset Password
                             </button>
                         </form>

@@ -9,61 +9,76 @@ main .panel {
 }
 
 /* 1st panel */
-@media screen {
-    .hero {
-        padding: 10px;
-        border-radius: 10px;
-        margin: 0;
-        color: var(--light-text)
-    }
+main .hero {
+    margin: 0;
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--light-text)
+}
+
+main .cross-section {
+    display: grid;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+main .navset {
+    overflow: hidden;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--prime);
+}
+
+main .navset a {
+    color: var(--light-text);
+    text-decoration: none;
 }
 
 /* 2nd panel */
-@media screen {
-    main .panel-2 .stream-element {
-        max-width: 30em;
-        margin-bottom: 20px;
-        border-radius: 10px;
-        text-align: center;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        background-color: var(--d-prime);
-    }
-
-    main .panel-2 .stream-element h2 {
-        font-size: 1.2em;
-        padding-inline: 5px;
-    }
-
-    main .panel-2 .stream-element img {
-        width: 100%;
-    }
-
-    main .panel-2 .stream-element a {
-        color: var(--light-text);
-        text-decoration: none;
-        display: flex;
-        flex-direction: column;
-    }
-
-    main .panel-2 .stream-element a:hover {
-        text-decoration: underline;
-    }
-
-    main .panel-2 .stream-element-form {
-        background-color: var(--d-prime);
-        border-radius: 10px;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    main .panel-2 .stream-element-form input {
-        margin-bottom: 10px;
-        resize: none;
-    }
+main .panel-2 .stream-element {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    max-width: 30em;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: var(--d-prime);
 }
+
+main .panel-2 .stream-element h2 {
+    font-size: 1.2em;
+    padding-inline: 5px;
+}
+
+main .panel-2 .stream-element img {
+    width: 100%;
+}
+
+main .panel-2 .stream-element a {
+    display: flex;
+    flex-direction: column;
+    color: var(--light-text);
+    text-decoration: none;
+}
+
+main .panel-2 .stream-element a:hover {
+    text-decoration: underline;
+}
+
+main .panel-2 .stream-element-form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--d-prime);
+}
+
+main .panel-2 .stream-element-form input {
+    margin-bottom: 10px;
+    resize: none;
+}
+
 
 @media (max-width: 50em) {
     main {

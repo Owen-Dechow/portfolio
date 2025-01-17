@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Contact Form{% endblock %}
+{% block stylesheets %}
+    <link href="{% static '/css/web_sculpt.css' %}" rel="stylesheet">
+{% endblock %}
+{% block head %}
+    <img src="{% static '/images/headers/html.jpg' %}" alt="header image">
+    <h1>Web Sculpt</h1>
+{% endblock %}
+{% block content %}
+    <div class="content-wrapper">
+        <dropdown-area class="about">
+        <button is="dropdown-title">
+            What do we offer?
+            <dropdown-indicator></dropdown-indicator>
+        </button>
+        <dropdown-content>
+        <p>
+            On November 30, 2022, Open AI released Chat GPT, the most powerful AI agent
+            created up to that date. This breakthrough marked a pivotal moment in the
+            history of artificial intelligence, setting new benchmarks for what AI could
+            achieve. Since then, the digital landscape has changed dramatically. With
+            the rapid advancement and proliferation of AI technologies, the number and
+            usability of AI website builders have surged, leading to significant
+            transformations in how we interact with the digital world. As AI has become
+            more integrated into various aspects of technology, the World Wide Web has
+            consolidated, and concerns around privacy have intensified, with personal
+            data becoming increasingly vulnerable.
+        </p>
+        <p>
+            Hello, my name is Owen Dechow, and I am here to tell you about my company:
+            Web Sculpt. Imagine working from just one place. One website to manage all
+            your business needs. That’s precisely what Web Sculpt offers. Our innovative
+            platform can build and serve custom web solutions tailored to your unique
+            requirements. Whether you need an e-commerce site that efficiently manages
+            products, prices, and markup or a site that handles complex biology
+            simulations, Web Sculpt is equipped to deliver.
+        </p>
+        <p>
+            Web Sculpt can do it all, providing seamless integration and unparalleled
+            functionality. Our solutions go beyond the capabilities of conventional
+            website builders and AI technologies, venturing into a realm of infinite
+            possibilities. We pride ourselves on offering advanced, secure, and private
+            web solutions that cater to your every need. With Web Sculpt, you can rest
+            assured that your online presence is robust, flexible, and safeguarded. Our
+            commitment to maintaining security and privacy sets us apart, ensuring that
+            your business operations run smoothly and securely in an ever-evolving
+            digital landscape.
+        </p>
+        <p>
+            Choose Web Sculpt and experience the future of web solutions today. Let's
+            build something extraordinary together!
+        </p>
+        </dropdown-content>
+        </dropdown-area>
+        <div class="price">
+            <form>
+                <h2>Create Pricing Estimate</h2>
+                <p>
+                    <label>
+                        Does your website need users?
+                        <select id="users">
+                            <option>No</option>
+                            <option>Yes</option>
+                        </select>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        How many people a day will visit your website?
+                        <input id="people" value=0 type=number min=0 max=100000000>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        Does your website need dynamic elements (ie. media uploads, contact forms, social posts)?
+                        <select id="dynamic">
+                            <option>No</option>
+                            <option>Yes</option>
+                        </select>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        Other than dynamic elements, how many times per year will you need to update your website?
+                        <input id="updates" value=0 type=number min=0 max=200>
+                    </label>
+                </p>
+                <button type="button" onclick="calcPrice()">Calculate Price</button>
+                <button type="reset" onclick="calcPrice()">Reset</button>
+            </form>
+            <form>
+                <h2>Your Price Estimate</h2>
+                <p>
+                    <label>
+                        Your building (one time) price is
+                        <input disabled value="$5000">
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        Your servicing (monthly) price is
+                        <input id="monthly" disabled>
+                    </input>
+                </label>
+            </p>
+            <script>
+                function calcPrice() {
+                    let users = document.querySelector("#users").value === "Yes";
+                    let people = document.querySelector("#people").value;
+                    let dynamic = document.querySelector("#dynamic").value === "Yes";
+                    let updates = document.querySelector("#updates").value;
+
+                    let price = Math.sqrt(people);
+                    
+                    if (users || dynamic) {
+                        price *= 1.7;
+                        price += 5;
+                    }
+
+                    price += updates * 75;
+
+                    price = price < 5
+                        ? 5
+                        : price;
+
+                    price *= 2;
+
+                    document.querySelector("#monthly").value = `$${price}`
+
+                }
+
+                calcPrice();
+            </script>
+        </form>
+    </div>
+    <div class="samples">
+        <h2>Sample Work</h2>
+        <a href="https://herdgenetics.com" target="_none">
+            <img src=" https://herdgenetics.s3.amazonaws.com/media/favicon.svg">
+            Herd Genetics
+        </a>
+        <a href="https://voxproject.dev/calcvox/goals.html" target="none">
+            <img src="https://voxproject.dev/calcvox/assets/logoinvert.png">
+            The Vox Project
+        </a>
+        <a href="http://www.waitbags.ru/en/" target="none">
+            <img src="https://www.waitbags.ru/static/images/logo.svg">
+            Wait Bags
+        </a>
+        <a href="https://cowprogress.com" target="none">
+            <img src="https://github.com/Owen-Dechow/cow_progress/raw/main/staticfiles/media/favicon.svg">
+            Cow Progress
+        </a>
+    </div>
+</div>
+{% endblock content %}

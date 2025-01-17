@@ -1,3 +1,4 @@
+import re
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
@@ -83,6 +84,8 @@ def my_account(request):
     }
     return render(request, "base/my_account.html", args)
 
+def web_sculpt(request):
+    return render(request, "base/web_sculpt.html")
 
 @login_required()
 def delete_stream_element(request, element):

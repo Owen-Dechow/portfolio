@@ -43,4 +43,7 @@ urlpatterns = [
         views.delete_stream_element,
         name="delete-stream-element",
     ),
+    path(
+        "web-sculpt", views.web_sculpt
+    )
 ]

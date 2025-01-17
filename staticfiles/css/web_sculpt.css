@@ -1,0 +1,85 @@
+.content-wrapper {
+    padding: 20px;
+}
+
+.about {
+    max-width: 800px;
+    margin-inline: auto;
+    box-shadow: var(--box-shadow);
+    background-color: var(--d-prime);
+    border: 1px solid;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.about>button {
+    width: 100%;
+}
+
+.about>dropdown-content {
+    transition-duration: 0.5s;
+    padding-inline: 10px;
+}
+
+.about>dropdown-content[open=true] {
+    padding: 10px;
+}
+
+.price {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    form {
+        box-shadow: var(--box-shadow);
+        background-color: var(--d-prime);
+        padding: 10px;
+        border: 1px solid;
+        border-radius: 5px;
+
+
+        select {
+            font-size: 1em;
+            background-color: var(--background);
+            color: var(--dark-text);
+            border-radius: 10px;
+            padding: 2.5px;
+        }
+    }
+}
+
+.samples {
+    font-size: 2rem;
+    margin-top: 20px;
+    padding: 20px;
+    width: 100%;
+    align-items: stretch;
+    gap: 20px;
+    display: grid;
+    box-sizing: border-box;
+    grid-template-columns: repeat(4, calc(25% - 10px));
+    text-align: center;
+
+    h2 {
+        grid-column: span 4;
+    }
+
+    a {
+        text-decoration: none;
+        display: grid;
+        color: inherit;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            margin-top: 5px;
+            width: 100%;
+            max-width: 3em;
+            grid-row: 2;
+            justify-self: center;
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block fulltitle %}{% block title %}{% endblock title %}—Owen Dechow{% endblock fulltitle %}</title>
+    <link rel="stylesheet" href="{% static "base/main.css" %}">
+    {% block head %}
+    {% endblock head %}
+</head>
+<body>
+
+    <header>
+        {% block header %}
+        {% endblock header %}
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+    
+</body>
+</html>

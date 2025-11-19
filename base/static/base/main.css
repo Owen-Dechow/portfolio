@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0a0a0a;
+    color: #eeeeee;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header {
+    text-align: center;
+    margin: 20px;
+
+    h1 {
+        margin: 0 0 10px 0;
+    }
+}
+
+a {
+    color: inherit;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+select,
+button {
+    border-radius: 3px;
+    border: 1px solid;
+    padding: 3px;
+    cursor: pointer;
+    background-color: #0a0a0a;
+    color: inherit;
+
+    &:hover {
+        background-color: #303030;
+    }
+}

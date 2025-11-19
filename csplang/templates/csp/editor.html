@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}CSPLang{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'csplang/csp.css' %}">
+<script type="module" src="{% static 'csplang/main.js' %}"></script>
+{% endblock head %}
+
+{% block header %}
+<h1>CSP Pseudocode Runner</h1>
+By: Owen Dechow (<a href="/csp/justify">Justification of Implementation</a>)
+{% endblock header %}
+
+{% block content %}
+<div class="editing-screen">
+    <div class="buttons">
+        <div>
+            <button onclick="insertChar('←')">←</button>
+            <button onclick="insertChar('≠')">≠</button>
+            <button onclick="insertChar('≥')">≥</button>
+            <button onclick="insertChar('≤')">≤</button>
+        </div>
+        <div>
+            <label>
+                Loaded Program:
+                <select id="example-programs" onchange="setProgram()">
+                </select>
+            </label>
+        </div>
+        <div>
+            <button onclick="run()">Run</button>
+            <button onclick="clearUiTerm()">Clear</button>
+        </div>
+    </div>
+
+    <div class="editor-wrapper">
+        <div id="numbers" class="numbers"></div>
+        <div class="editor">
+            <div class="suggestions" id="suggestions" style="display: none"></div>
+            <textarea onclick="clickCode()" onkeydown="checkTab(this, event)" onchange="update(this)"
+                oninput="update(this); suggestCompletions(this)" spellcheck="false" class="code" id="code"></textarea>
+            <pre aria-hidden="true" class="highlighting highlight" id="highlighting"></pre>
+        </div>
+    </div>
+
+    <pre class="output" id="output"></pre>
+</div>
+
+{% endblock content %}

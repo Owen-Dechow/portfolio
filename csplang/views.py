@@ -3,8 +3,8 @@ from django.shortcuts import render
 
 
 def editor(request: HttpRequest) -> HttpResponse:
-    return render(request, "csp/editor.html")
+    return render(request, "csplang/editor.html")
 
 
 def justify(request: HttpRequest) -> HttpResponse:
-    return render(request, "csp/justify.html")
+    return render(request, "csplang/justify.html")

@@ -123,7 +123,9 @@ window.run = () => {
         execute(ast);
     } catch (e) {
         console.error(e);
-        e.printout(text);
+        try {
+            e.printout(text);
+        } catch { }
     }
 };
 
@@ -157,11 +159,15 @@ function highlight(text) {
         text += " ";
     }
 
+    // My ability to read this has long since passed--I follow a do not touch
+    //  and hope fot the best doctrine about it now.
+    const operatorRegex = /(?<!\/)\/(?!\/)|[{}\[\](),←≤≥≠=*\-+]/g;
+
     /* @type [string, RegExp][] */
     const rules = [
-        ["operator", /[{}()\[\],←≤≥≠=]/g],
-        ["lt", /&lt;/g],
-        ["gt", /&gt;/g],
+        ["operator", operatorRegex],
+        ["operator", /&lt;/g],
+        ["operator", /&gt;/g],
         ["keyword", /\b(FOR|EACH|IN|IF|ELSE|RETURN|MOD|NOT|AND|OR|REPEAT|TIMES|UNTIL|PROCEDURE)\b/g],
         ["builtin", /\b(RANDOM|DISPLAY|LENGTH|INPUT|REMOVE|INSERT|APPEND)\b/g],
         ["boolean", /\b(true|false)\b/g],

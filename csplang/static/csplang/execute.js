@@ -98,7 +98,7 @@ export function execute(ast) {
 
             const min = Math.min(a.value, b.value);
             const max = Math.max(a.value, b.value);
-            return new NumberValue((max - min) * Math.random() + min);
+            return new NumberValue(Math.round((max - min) * Math.random() + min));
         }),
         "INSERT": makeBuiltinFunction(3, "INSERT", (args, cr) => {
             const [lst, idx, val] = args;

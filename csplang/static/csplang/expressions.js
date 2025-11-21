@@ -491,6 +491,7 @@ export function parseExpression(ts) {
             } else if (t.type == TokenType.OPEN_PAREN && exp instanceof IdentityExpression) {
                 const args = parseExpressionList(ts, true);
                 exp = new FunctionCall(exp.token, args[0], args[1]);
+                exp = sortExpression(exp);
             } else {
                 ts.back();
                 break;
@@ -504,4 +505,102 @@ export function parseExpression(ts) {
     }
 
     return exp;
+}
+
+/**
+ * @param {Token} token
+ */
+function getPrecedence(token) {
+    const precedence = {
+        [TokenType.OR]: 1,
+        [TokenType.AND]: 2,
+        [TokenType.EQUAL]: 3,
+        [TokenType.NOT_EQUAL]: 3,
+        [TokenType.LESS_THAN]: 4,
+        [TokenType.LESS_THAN_OR_EQUAL]: 4,
+        [TokenType.GREATER_THAN]: 4,
+        [TokenType.GREATER_THAN_OR_EQUAL]: 4,
+        [TokenType.ADD]: 5,
+        [TokenType.SUBTRACT]: 5,
+        [TokenType.MULTIPLY]: 6,
+        [TokenType.DIVIDE]: 6,
+        [TokenType.MOD]: 6
+    };
+    return precedence[token.type] ?? 0;
+}
+
+/**
+ * @param {Expression} exp
+ * @returns {Expression}
+ */
+function sortExpression(exp) {
+    if (exp instanceof ContainerExpression) {
+        return new ContainerExpression(sortExpression(exp.innerExpression));
+    }
+
+    if (exp instanceof ListExpression) {
+        return new ListExpression(exp.items.map(sortExpression), exp.open, exp.close);
+    }
+
+    if (exp instanceof FunctionCall) {
+        return new FunctionCall(exp.func, exp.args.map(sortExpression), exp.close);
+    }
+
+    if (exp instanceof LiteralExpression) {
+        return new LiteralExpression(exp.token);
+    }
+
+    if (exp instanceof UnaryExpression) {
+        if (exp.innerExpression instanceof BinaryExpression) {
+            const binLeft = exp.innerExpression.left;
+            const newLeft = new UnaryExpression(exp.token, binLeft);
+
+            return new BinaryExpression(newLeft, exp.innerExpression.token, sortExpression(exp.innerExpression.right));
+        }
+
+        return new UnaryExpression(exp.token, exp.innerExpression);
+    }
+
+
+    if (exp instanceof BinaryExpression) {
+        const sortedLeft = sortExpression(exp.left);
+        const sortedRight = sortExpression(exp.right);
+        const currPrec = getPrecedence(exp.token);
+
+        // Rotate left if needed
+        if (sortedLeft instanceof BinaryExpression) {
+            const leftPrec = getPrecedence(sortedLeft.token);
+            if (leftPrec < currPrec) {
+                const A = sortedLeft.left;
+                const B = sortedLeft.right;
+                const op1 = sortedLeft.token;
+                const op2 = exp.token;
+                const C = sortedRight;
+
+                // Rotate: (A op1 B) op2 C → A op1 (B op2 C)
+                const newRight = new BinaryExpression(B, op2, C);
+                return new BinaryExpression(A, op1, sortExpression(newRight));
+            }
+        }
+
+        // Rotate right if needed
+        if (sortedRight instanceof BinaryExpression) {
+            const rightPrec = getPrecedence(sortedRight.token);
+            if (rightPrec <= currPrec) {
+                const A = sortedLeft;
+                const B = sortedRight.left;
+                const C = sortedRight.right;
+                const op1 = exp.token;
+                const op2 = sortedRight.token;
+
+                // Rotate: A op1 (B op2 C) → (A op1 B) op2 C
+                const newLeft = new BinaryExpression(A, op1, B);
+                return new BinaryExpression(sortExpression(newLeft), op2, C);
+            }
+        }
+
+        return new BinaryExpression(sortedLeft, exp.token, sortedRight);
+    }
+
+    throw new Error("SHOULD NEVER HIT THIS POINT" + exp.constructor.name);
 }

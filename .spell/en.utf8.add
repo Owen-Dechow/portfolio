@@ -21,3 +21,4 @@ contenttypes
 backends
 staticfiles
 Config
+instanceof

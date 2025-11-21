@@ -66,6 +66,7 @@ button {
     display: grid;
     position: relative;
     width: fit-content;
+    min-width: 100%;
 
     .code,
     .highlighting {

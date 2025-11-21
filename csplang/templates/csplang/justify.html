@@ -132,7 +132,7 @@
 
     <h2>5. Dynamic List Types</h2>
     <div class="splitable">
-        <p>In the implementation lists can have differently typed elements. This is
+        <p>In the implementation, lists can have differently typed elements. This is
             the case for several reasons. One, there is no way to determine the inner type
             of an empty list. Two, INPUT may result in a string or number. Three, the
             spec does not say <q>lists must be comprised of one singular type.</q> Four, I do
@@ -182,7 +182,7 @@
         result of a function that does not return a value (such as DISPLAY) to a variable.</p>
 
     <div class="splitable">
-        <p>If you attempt do display a null value to use an operator on it, the program will crash
+        <p>If you attempt to display a null value to use an operator on it, the program will crash
             and a Null Value Error will be raised.</p>
         <code>val ← DISPLAY("") // val has a null value
             DISPLAY(val) // Null Value Error raised</code>
@@ -190,8 +190,8 @@
 
     <h2>9. No First Class Procedures</h2>
     <p>While you may create a procedure inside of a different procedure, the inner procedure only
-        has access to the global scope. As CSP is meant to be language agnostic it is assumed that
-        procedures should follow the simplest design pattern possible.</p>
+        has access to the global scope. As CSP is meant to be language agnostic, I followed
+        the simplest design pattern possible, and the one with least JavaScript.</p>
     <code val="PROCEDURE myProc(arg1) {
     PROCEDURE myInnerProc() {
         DISPLAY(arg1) // Although this is inside myProc it does not have access to arg1

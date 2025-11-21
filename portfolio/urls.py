@@ -21,4 +21,5 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("csp/", include("csplang.urls")),
+    path("", include("base.urls")),
 ] + static(settings.STATIC_URL)

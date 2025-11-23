@@ -168,7 +168,6 @@ export class BinaryExpression extends Expression {
         const op = binOps[type];
 
         if (op != undefined) {
-            // @ts-ignore
             const rightVal = right.value;
 
             return op(left.value, rightVal);

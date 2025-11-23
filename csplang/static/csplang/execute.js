@@ -4,6 +4,8 @@ import { BooleanValue, Expression, ListValue, NullValue, NumberValue, StringValu
 import { Action, Assign, Conditional, ExpressionAction, For, MakeProc, RepeatN, RepeatUntil, Return } from "./action.js";
 import { CSPError } from "./error.js";
 import { Token } from "./tokens.js";
+import { parseProgram } from "./parser.js";
+import { ObjectFinder } from "./objects.js";
 
 /**
  * @param {number} nArgs
@@ -54,9 +56,11 @@ function throwBadIdx(range, lst, idx, allowNextEmpty) {
 }
 
 /**
- * @param {Action[]} ast
+ * @param {string} text 
  */
-export function execute(ast) {
+export function execute(text) {
+    const ast = parseProgram(text);
+
     const gc = new Context();
     gc.context = {
         "LENGTH": makeBuiltinFunction(1, "LENGTH", (args, cr) => {
@@ -73,8 +77,7 @@ export function execute(ast) {
             let arg = args[0];
 
             if (arg instanceof StringValue || arg instanceof NumberValue || arg instanceof BooleanValue) {
-                // @ts-ignore
-                document.querySelector("#output").textContent += " " + arg.value;
+                ObjectFinder.output().textContent += " " + arg.value;
 
                 return new NullValue();
             } else if (arg instanceof ListValue) {

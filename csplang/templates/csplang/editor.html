@@ -17,21 +17,21 @@ By: Owen Dechow (<a href="/csp/justify">Justification of Implementation</a>)
 <div class="editing-screen">
     <div class="buttons">
         <div>
-            <button onclick="insertChar('←')">←</button>
-            <button onclick="insertChar('≠')">≠</button>
-            <button onclick="insertChar('≥')">≥</button>
-            <button onclick="insertChar('≤')">≤</button>
+            <button id="assign-btn">←</button>
+            <button id="assign-btn">≠</button>
+            <button id="assign-btn">≥</button>
+            <button id="assign-btn">≤</button>
         </div>
         <div>
             <label>
                 Loaded Program:
-                <select id="example-programs" onchange="setProgram()">
+                <select id="example-programs">
                 </select>
             </label>
         </div>
         <div>
-            <button onclick="run()">Run</button>
-            <button onclick="clearUiTerm()">Clear</button>
+            <button id="run-btn">Run</button>
+            <button id="clear-btn">Clear</button>
         </div>
     </div>
 
@@ -39,8 +39,7 @@ By: Owen Dechow (<a href="/csp/justify">Justification of Implementation</a>)
         <div id="numbers" class="numbers"></div>
         <div class="editor">
             <div class="suggestions" id="suggestions" style="display: none"></div>
-            <textarea onclick="clickCode()" onkeydown="checkTab(this, event)" onchange="update(this)"
-                oninput="update(this); suggestCompletions(this)" spellcheck="false" class="code" id="code"></textarea>
+            <textarea spellcheck="false" class="code" id="code"></textarea>
             <pre aria-hidden="true" class="highlighting highlight" id="highlighting"></pre>
         </div>
     </div>

@@ -3,6 +3,7 @@
 /** @typedef {import("./tokens").TokenTypeEnum} TokenTypeEnum */
 
 import { Expression } from "./expressions.js";
+import { ObjectFinder } from "./objects.js";
 import { Token } from "./tokens.js";
 
 export class CSPError {
@@ -58,9 +59,7 @@ export class CSPError {
 
         const msg = `Error (line ${errorLine + 1}): ${this.msg}${left.startsWith("\n") ? "" : "\n"}<span class="err">${left}<span class="err">${err}</span>${right}</span>`;
 
-        const output = document.querySelector("#output");
-        if (output)
-            output.innerHTML = msg;
+        ObjectFinder.output().innerHTML = msg;
     }
 
     /**

@@ -1,5 +1,12 @@
 // @ts-check
 
+import { ObjectFinder } from "./objects.js";
+import { update } from "./editor.js";
+
+/**
+ * @typedef {HTMLDivElement & {callback: () => void}} CallbackDiv
+ */
+
 const words = [
     ["assign", "←", "operator", "←"],
     ["neq", "≠", "operator", "≠"],
@@ -75,64 +82,8 @@ function score(a, b) {
     return similarity;
 }
 
-/**
- * Position the suggestions box at the caret location inside a textarea.
- * Flips up or down depending on available space in the parent.
- * @param {HTMLTextAreaElement} textarea
- * @param {HTMLElement} suggestionsBox
- */
-function positionSuggestionsBox(textarea, suggestionsBox) {
-    const rect = textarea.getBoundingClientRect();
-
-    // Create a hidden div that copies textarea styles
-    const div = document.createElement("div");
-    const style = getComputedStyle(textarea);
-    for (const prop of style) {
-        div.style[prop] = style[prop];
-    }
-
-    div.style.position = "absolute";
-    div.style.visibility = "hidden";
-    div.style.whiteSpace = "pre-wrap";
-    div.style.overflow = "auto";
-    div.style.width = rect.width + "px";
-
-    const beforeCaret = textarea.value.substring(0, textarea.selectionStart);
-    const afterCaret = textarea.value.substring(textarea.selectionStart);
-
-    const escape = (/** @type {string} */ str) =>
-        str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-    div.innerHTML = escape(beforeCaret);
-
-    const span = document.createElement("span");
-    span.textContent = "\u200b"; // zero-width space
-    div.appendChild(span);
-    div.appendChild(document.createTextNode(afterCaret));
-
-    document.body.appendChild(div);
-
-    const spanRect = span.getBoundingClientRect();
-
-    // @ts-ignore
-    const parentRect = textarea.parentElement.getBoundingClientRect();
-
-    // Default position: below caret
-    suggestionsBox.style.position = "absolute";
-    suggestionsBox.style.left = spanRect.left + 10 + "px";
-
-    // Check available space
-    const spaceBelow = parentRect.bottom - spanRect.bottom;
-    const spaceAbove = spanRect.top - parentRect.top;
-
-    if (spaceBelow < 300 && spaceAbove > spaceBelow) {
-        suggestionsBox.style.top = spanRect.top - suggestionsBox.offsetHeight - 10 + "px";
-    } else {
-        suggestionsBox.style.top = spanRect.bottom + 10 + "px";
-    }
-
-    document.body.removeChild(div);
-
+function positionSuggestionsBox() {
+    throw Error("NOT YET IMPLIMENTED");
 }
 
 const maxOptions = 20;
@@ -179,12 +130,13 @@ export function autoCompleteSendKey(key) {
 }
 
 export function clearAutoCompleteBox() {
-    // @ts-ignore
-    document.querySelector("#suggestions").style.display = "none";
+    ObjectFinder.suggestions().style.display = "none";
     completions = [];
 }
 
 let completeTarget = 20;
+
+/** @type CallbackDiv[] */
 let completions = [];
 
 /**
@@ -205,15 +157,13 @@ function getAllWords(text, cursorPos) {
 }
 
 
-// @ts-ignore
-window.suggestCompletions = (/** @type {HTMLTextAreaElement} */ element) => {
-    /** @type {HTMLDivElement} */
-    // @ts-ignore
-    const suggestionsBox = document.querySelector("#suggestions");
+export function suggestCompletions() {
+    const suggestionsBox = ObjectFinder.suggestions();
+    const code = ObjectFinder.code();
 
-    const caretPos = element.selectionStart;
-    const beforeCaret = element.value.slice(0, caretPos);
-    const afterCaret = element.value.slice(caretPos);
+    const caretPos = code.selectionStart;
+    const beforeCaret = code.value.slice(0, caretPos);
+    const afterCaret = code.value.slice(caretPos);
 
     completions = [];
     completeTarget = 0;
@@ -233,7 +183,7 @@ window.suggestCompletions = (/** @type {HTMLTextAreaElement} */ element) => {
     const localWords = words.map(([key, display, klass, val]) => [key, display, klass, val]);
 
     // Sort all words by similarity using the key
-    const allWords = getAllWords(element.value, caretPos);
+    const allWords = getAllWords(code.value, caretPos);
     allWords.forEach(w => {
         const exists = localWords.some(([key]) => key == w);
         if (!exists && !query.includes(w)) {
@@ -248,7 +198,9 @@ window.suggestCompletions = (/** @type {HTMLTextAreaElement} */ element) => {
 
     sorted.forEach(({ key, display, klass, val }) => {
         if (completions.length < maxOptions) {
-            const div = document.createElement("div");
+            const div =
+                /** @type {CallbackDiv} */
+                (document.createElement("div"));
 
             div.classList.add("highlight");
 
@@ -257,20 +209,18 @@ window.suggestCompletions = (/** @type {HTMLTextAreaElement} */ element) => {
 
             div.innerHTML = `<span>${key}</span><span class="${klass}">${display}</span>`;
 
-            // @ts-ignore
             div.callback = () => {
                 const newBeforeCaret = beforeCaret.replace(/([a-zA-Z_]+)$/, val);
-                element.value = newBeforeCaret + afterCaret;
+                code.value = newBeforeCaret + afterCaret;
                 const newCaretPos = newBeforeCaret.length;
-                element.focus();
-                element.setSelectionRange(newCaretPos, newCaretPos);
+                code.focus();
+                code.setSelectionRange(newCaretPos, newCaretPos);
                 suggestionsBox.innerHTML = "";
 
-                // @ts-ignore
-                window.update(element);
-
+                update();
                 clearAutoCompleteBox();
             };
+
 
             completions.push(div);
 
@@ -278,5 +228,5 @@ window.suggestCompletions = (/** @type {HTMLTextAreaElement} */ element) => {
         }
     });
 
-    positionSuggestionsBox(element, suggestionsBox);
+    positionSuggestionsBox();
 };

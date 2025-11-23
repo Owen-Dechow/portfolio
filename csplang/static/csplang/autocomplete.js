@@ -83,7 +83,54 @@ function score(a, b) {
 }
 
 function positionSuggestionsBox() {
-    throw Error("NOT YET IMPLIMENTED");
+    const box = ObjectFinder.suggestions();
+    const textarea = ObjectFinder.code();
+    const selectionStart = textarea.selectionStart;
+
+    // Create a hidden mirror div
+    const div = document.createElement("div");
+    const style = window.getComputedStyle(textarea);
+
+    // Copy important styles so text matches
+    [
+        "fontFamily", "fontSize", "fontWeight", "fontStyle",
+        "letterSpacing", "textTransform", "wordSpacing",
+        "textIndent", "whiteSpace", "padding", "border",
+        "boxSizing", "lineHeight"].forEach(prop => {
+            div.style[prop] = style[prop];
+        });
+
+    div.style.position = "fixed";
+    div.style.visibility = "hidden";
+    div.style.whiteSpace = "pre-wrap";
+    div.style.width = textarea.offsetWidth + "px";
+    div.style.height = textarea.offsetHeight + "px";
+
+    // Text before caret
+    const textBeforeCaret = textarea.value.substring(0, selectionStart);
+    div.textContent = textBeforeCaret;
+
+    // Add a marker span at caret
+    const span = document.createElement("span");
+    span.textContent = "\u200b"; // zero-width space
+    div.appendChild(span);
+
+    document.body.appendChild(div);
+
+    const rect = span.getBoundingClientRect();
+
+    const parentRect =
+        /** @type {HTMLElement} */
+        (box.parentNode || document.body).getBoundingClientRect();
+
+    // Position box relative to textarea + caret
+    const taRect = textarea.getBoundingClientRect();
+    box.style.position = "absolute";
+    box.style.left = taRect.left + rect.left - div.getBoundingClientRect().left + window.scrollX - parentRect.left - 30 + "px";
+    box.style.top = taRect.top - box.offsetHeight + rect.top - div.getBoundingClientRect().top + window.scrollY - 10 - parentRect.top + "px";
+
+    // Cleanup
+    document.body.removeChild(div);
 }
 
 const maxOptions = 20;
@@ -98,7 +145,7 @@ export function autoCompleteSendKey(key) {
             return true;
         }
 
-        if (key == "ArrowDown") {
+        if (key == "ArrowUp") {
             completions[completeTarget].classList.remove("complete-target");
             completeTarget += 1;
 
@@ -110,7 +157,7 @@ export function autoCompleteSendKey(key) {
             return true;
         }
 
-        if (key == "ArrowUp") {
+        if (key == "ArrowDown") {
             completions[completeTarget].classList.remove("complete-target");
             completeTarget -= 1;
 

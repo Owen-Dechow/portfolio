@@ -22,3 +22,4 @@ backends
 staticfiles
 Config
 instanceof
+keydown

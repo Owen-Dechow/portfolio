@@ -162,7 +162,6 @@ button {
 }
 
 .article {
-    width: fit-content;
     margin-inline: auto;
     display: flex;
     flex-direction: column;
@@ -177,11 +176,18 @@ button {
     gap: 10px;
 }
 
+@media (max-width: 500px) {
+    .splitable {
+        grid-template-columns: 1fr;
+    }
+}
+
 code {
     border: 1px solid;
     padding: 3px;
     border-radius: 3px;
     white-space: pre-line;
+    overflow: auto;
 }
 
 p {

@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["owendechow.pythonanywhere.com"]
 
+if DEBUG:
+    ALLOWED_HOSTS.append("*")
+
 
 # Application definition
 

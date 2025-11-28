@@ -126,8 +126,14 @@ function positionSuggestionsBox() {
     // Position box relative to textarea + caret
     const taRect = textarea.getBoundingClientRect();
     box.style.position = "absolute";
-    box.style.left = taRect.left + rect.left - div.getBoundingClientRect().left + window.scrollX - parentRect.left - 30 + "px";
-    box.style.top = taRect.top - box.offsetHeight + rect.top - div.getBoundingClientRect().top + window.scrollY - 10 - parentRect.top + "px";
+    box.style.left = taRect.left + rect.left - div.getBoundingClientRect().left - parentRect.left + 10 + "px";
+    let top = taRect.top - box.offsetHeight + rect.top - div.getBoundingClientRect().top - parentRect.top;
+
+    if (top < 0 && taRect.top + box.offsetHeight < parentRect.height) {
+        top = taRect.top + rect.top - div.getBoundingClientRect().top - parentRect.top + 10;
+    }
+
+    box.style.top = top + "px";
 
     // Cleanup
     document.body.removeChild(div);
@@ -145,7 +151,7 @@ export function autoCompleteSendKey(key) {
             return true;
         }
 
-        if (key == "ArrowUp") {
+        if (key == "ArrowDown") {
             completions[completeTarget].classList.remove("complete-target");
             completeTarget += 1;
 
@@ -157,7 +163,7 @@ export function autoCompleteSendKey(key) {
             return true;
         }
 
-        if (key == "ArrowDown") {
+        if (key == "ArrowUp") {
             completions[completeTarget].classList.remove("complete-target");
             completeTarget -= 1;
 

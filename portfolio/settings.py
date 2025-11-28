@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["owendechow.pythonanywhere.com"]
 
 
 # Application definition
@@ -72,11 +72,11 @@ WSGI_APPLICATION = "portfolio.wsgi.application"
 
 STATIC_URL = "static/"
 
-if not DEBUG:
-    STATIC_ROOT = BASE_DIR / "static/"
+STATIC_ROOT = BASE_DIR / "static/"
 
 if DEBUG:
     import mimetypes
+
     mimetypes.add_type("application/javascript", ".js", True)
 
 # Default primary key field type

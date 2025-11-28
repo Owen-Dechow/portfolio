@@ -120,6 +120,17 @@ export class TokenStream {
         this.loc = -1;
     }
 
+    saveState() {
+        return this.loc;
+    }
+
+    /**
+     * @param {number} state
+     */
+    loadState(state) {
+        this.loc = state;
+    }
+
     /** @returns {Token} */
     next() {
         if (this.loc < this.tokens.length)

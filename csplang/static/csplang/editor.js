@@ -87,7 +87,7 @@ export function setProgram() {
 export function run() {
     ObjectFinder.output().innerHTML = "";
 
-    const text = ObjectFinder.code().value;
+    const text = ObjectFinder.code().value + "\n";
 
     try {
         execute(text);

@@ -271,7 +271,14 @@ function parseFor(ts) {
  * @param {TokenStream} ts
  */
 function parseReturn(ts) {
-    return new Return(parseExpression(ts));
+    const state = ts.saveState();
+
+    try {
+        return new Return(parseExpression(ts));
+    } catch {
+        ts.loadState(state);
+        return new Return();
+    }
 }
 
 

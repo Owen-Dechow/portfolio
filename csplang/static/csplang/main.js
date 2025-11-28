@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         ObjectFinder.exampleSelect().addEventListener("change", setProgram);
 
-        ObjectFinder.runBtn().addEventListener("change", run);
-        ObjectFinder.clearBtn().addEventListener("change", () => { ObjectFinder.output().innerHTML = ""; });
+        ObjectFinder.runBtn().addEventListener("click", run);
+        ObjectFinder.clearBtn().addEventListener("click", () => { ObjectFinder.output().innerHTML = ""; });
 
         loadPrograms();
     }

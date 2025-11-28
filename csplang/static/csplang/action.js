@@ -96,12 +96,12 @@ export class For extends Action {
 
 export class Return extends Action {
     /**
-     * @param {Expression} value
+     * @param {Expression} [value]
      */
     constructor(value) {
         super();
 
-        /** @type {Expression} */
+        /** @type {Expression | undefined} */
         this.value = value;
     }
 }

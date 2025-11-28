@@ -278,7 +278,7 @@ function executeBlock(block, context, gc) {
                 }
             }
         } else if (e instanceof Return) {
-            return e.value.evaluate(context);
+            return e.value ? e.value.evaluate(context) : new NullValue();
         } else if (e instanceof ExpressionAction) {
             e.expression.evaluate(context);
         } else if (e instanceof RepeatUntil) {

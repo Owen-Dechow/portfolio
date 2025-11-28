@@ -23,3 +23,6 @@ staticfiles
 Config
 instanceof
 keydown
+mimetypes
+javascript
+pythonanywhere

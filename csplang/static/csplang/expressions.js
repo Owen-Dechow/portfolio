@@ -549,6 +549,10 @@ function sortExpression(exp) {
         return new LiteralExpression(exp.token);
     }
 
+    if (exp instanceof IdentityExpression) {
+        return new IdentityExpression(exp.token);
+    }
+
     if (exp instanceof UnaryExpression) {
         if (exp.innerExpression instanceof BinaryExpression) {
             const binLeft = exp.innerExpression.left;

@@ -1,19 +1,158 @@
 {% extends "base.html" %}
 
-{% block fulltitle %}Owen Dechow{% endblock fulltitle %}
+{% load static %}
 
 {% block header %}
-<h1>Owen Dechow</h1>
-The official website of
+    <link rel="stylesheet" href="{% static "base/homepage.css" %}">
 {% endblock header %}
 
+{% block fulltitle %}
+    Owen Dechow
+{% endblock fulltitle %}
+
+{% block navigation %}
+{% endblock navigation %}
+
 {% block content %}
-I am currently redesigning the website. Sorry its so empty. You are probably
-looking for one of these pages:
-<ul>
-    <li><a href="/csp">AP CSP Pseudocode Runner</a></li>
-    <li><a href="/csp/justify">CSP Justification</a></li>
-    <li><a href="https://github.com/Owen-Dechow">Github Page</a></li>
-    <li><a href="https://herdgenetics.com">Herd Genetics</a></li>
-</ul>
+    <div class="profile">
+        <div class="left">
+            <img src="{% static "base/profile.jpg" %}" alt="Profile Image">
+        </div>
+        <div class="right">
+            The official website of
+            <h1>
+                <span class="color">Owen</span>
+                <span class="color">Dechow</span>
+            </h1>
+            <q>Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.</q>
+            <span class="color">— Colossians 3:23</span>
+        </div>
+    </div>
+
+    <section>
+        <h2>A Little About Me</h2>
+        <p>
+            <q>As each has received a gift, use it to serve one another, as good stewards of God’s varied grace.</q>
+            <span class="color">— 1 Peter 4:10</span>
+        </p>
+        <p>
+            Hello, my name is <span class="color">Owen Dechow</span>. I am a young software engineer who wants to use
+            his skills to serve others and to serve the <span class="color">Lord</span>. I have experience with full-stack
+            web development, game development, data science, and systems programming. My favorite programming language is
+            <span class="color">C#</span>, but the languages I use the most are <span class="color">Python</span>,
+            <span class="color">JavaScript</span>, and <span class="color">Rust</span>. My favorite framework is
+            <span class="color">Django</span>.
+        </p>
+        <p>
+            I believe that every talent, skill, and gift are from the <span class="color">Lord</span>, and it is every man's
+            calling to use those <span class="color">gifts</span> for the expansion of <span class="color">God's</span> kingdom.
+            I plan to, <span class="color">God</span> willing, to work in the <span class="color">software engineering</span>
+            industry, while also working in ministry.
+        </p>
+    </section>
+
+    <section>
+        <h2>Learning Tools</h2>
+        <p>
+            <q>Blessed are those who find wisdom, those who gain understanding.</q>
+            <span class="color">— Proverbs 3:13</span>
+        </p>
+        <p>
+            One of the greatest blessings <span class="color">God</span> has given me is knowledge. It has allowed me practice
+            software engineering while still in <span class="color">high school</span>. A great benefit software engineering
+            in high school is that you can build the learning tools you wish you had. If your are a student hopefully you
+            find these tools are useful as I did.
+        </p>
+        <ul>
+            <li>
+                <a href="/csp">
+                    <img src="{% static "base/profile.jpg" %}" alt="Profile Image">
+                    <div>
+                        AP CSP - CSP Pseudocode Interpreter
+                        <p>
+                            College Board's Advanced Placement <span class="color">Computer Science Principals</span> class uses
+                            pseudocode instead of an actual language on the AP test. It is important though to understand this
+                            pseudocode. Therefore, I implemented a simple pseudocode interpreter, so you can practice in the language
+                            you will be tested on.
+                        </p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="/silk-road">
+                    <img src="{% static "base/profile.jpg" %}" alt="Profile Image">
+                    <div>
+                        AP World Hist. Modern - The Silk Road Game
+                        <p>
+                            Trade is an extremely important topic in College Board's Advanced Placement <span class="color">World History</span>
+                            Class. One of the most important trade routes in history was the Silk Road. In an attempt to make history
+                            interesting, I have created a simple Silk Road game.
+                        </p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Projects</h2>
+        <p>
+            <q>Commit to the Lord whatever you do, and He will establish your plans.</q>
+            <span class="color">— Proverbs 16:3</span>
+        </p>
+        <ul>
+            <li>
+                <a href="https://herdgenetics.com">
+                    <img src="https://herdgenetics.s3.amazonaws.com/media/banner7.webp" alt="Profile Image">
+                    <div>
+                        Herd Genetics
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab at dolores minima accusantium non.
+                            Rerum, vero! Atque sed debitis enim, quae aliquam velit provident, molestiae placeat mollitia sunt
+                            quia quod.
+                        </p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/Owen-Dechow/videre.nvim">
+                    <img src="{% static "base/profile.jpg" %}" alt="Profile Image">
+                    <div>
+                        videre.nvim
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab at dolores minima accusantium non.
+                            Rerum, vero! Atque sed debitis enim, quae aliquam velit provident, molestiae placeat mollitia sunt
+                            quia quod.
+                        </p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="https://beaAg.com">
+                    <img src="{% static "base/profile.jpg" %}" alt="Profile Image">
+                    <div>
+                        beaAg.com
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab at dolores minima accusantium non.
+                            Rerum, vero! Atque sed debitis enim, quae aliquam velit provident, molestiae placeat mollitia sunt
+                            quia quod.
+                        </p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/Owen-Dechow/NotebookLang">
+                    <img src="{% static "base/profile.jpg" %}" alt="Profile Image">
+                    <div>
+                        NotebookLang
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab at dolores minima accusantium non.
+                            Rerum, vero! Atque sed debitis enim, quae aliquam velit provident, molestiae placeat mollitia sunt
+                            quia quod.
+                        </p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </section>
 {% endblock content %}

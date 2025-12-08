@@ -1,0 +1,85 @@
+span.color {
+    &:nth-child(3n) {
+        color: lightgreen;
+    }
+
+    &:nth-child(3n+1) {
+        color: coral;
+    }
+
+    &:nth-child(3n+2) {
+        color: skyblue;
+    }
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+
+    img {
+        max-width: 300px;
+        border-radius: 5px 5px 50% 50%;
+        object-fit: cover;
+        border: 3px solid;
+    }
+
+    .left {
+        text-align: center;
+    }
+
+    .right {
+        height: fit-content;
+    }
+
+    h1 {
+        font-size: 5rem;
+        margin: 0;
+
+    }
+}
+
+section {
+    h2 {
+        display: flex;
+        align-items: center;
+
+        &::before,
+        &::after {
+            content: "";
+            border: 1px solid;
+            flex: 1;
+            margin: 5px;
+        }
+    }
+
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+li a {
+    border: 1px solid;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    margin-block: 1rem;
+    text-decoration: none;
+
+    img {
+        max-width: 150px;
+        aspect-ratio: 1;
+        object-fit: cover;
+    }
+
+    div {
+        padding: 10px;
+    }
+
+    &:hover {
+        background-color: #303030;
+    }
+}

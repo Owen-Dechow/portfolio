@@ -2,29 +2,46 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block fulltitle %}{% block title %}{% endblock title %}—Owen Dechow{% endblock fulltitle %}</title>
-    <link rel="stylesheet" href="{% static "base/main.css" %}">
-    {% block head %}
-    {% endblock head %}
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block fulltitle %}
+                {% block title %}
+                {% endblock title %}
 
-    <nav>
-        <a href="/">&lt;/Owen Dechow&gt;</a>
-    </nav>
+                —Owen Dechow
+            {% endblock fulltitle %}
 
-    <header>
-        {% block header %}
-        {% endblock header %}
-    </header>
+        </title>
+        <link rel="stylesheet" href="{% static "base/main.css" %}">
+        {% block head %}
+        {% endblock head %}
 
-    <main>
-        {% block content %}
-        {% endblock content %}
-    </main>
-    
-</body>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+              rel="stylesheet">
+    </head>
+    <body>
+
+        {% block navigation %}
+            <nav>
+                <a href="/">&lt;/Owen Dechow&gt;</a>
+            </nav>
+        {% endblock navigation %}
+
+        <header>
+            {% block header %}
+            {% endblock header %}
+
+        </header>
+
+        <main>
+            {% block content %}
+            {% endblock content %}
+
+        </main>
+
+    </body>
 </html>

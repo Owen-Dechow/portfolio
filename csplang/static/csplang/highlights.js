@@ -25,7 +25,7 @@ export function highlight(text) {
 
     /* @type [string, RegExp][] */
     const rules = [
-        ["operator", /[{}()\[\],←≤≥≠=]/g],
+        ["operator", /[{}()\[\],←≤≥≠=\+\*-]/g],
         ["lt", /&lt;/g],
         ["gt", /&gt;/g],
         ["keyword", /\b(FOR|EACH|IN|IF|ELSE|RETURN|MOD|NOT|AND|OR|REPEAT|TIMES|UNTIL|PROCEDURE)\b/g],

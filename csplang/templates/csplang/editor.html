@@ -1,51 +1,59 @@
 {% extends "base.html" %}
+
 {% load static %}
 
-{% block title %}CSPLang{% endblock title %}
+{% block title %}
+    CSPLang
+{% endblock title %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'csplang/csp.css' %}">
-<script type="module" src="{% static 'csplang/main.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'csplang/csp.css' %}">
+    <script type="module" src="{% static 'csplang/main.js' %}"></script>
+
+    <style>
+        body {
+            --body-max-width: 100%
+        }
+    </style>
 {% endblock head %}
 
 {% block header %}
-<h1>CSP Pseudocode Runner</h1>
-By: Owen Dechow (<a href="/csp/justify">Justification of Implementation</a>)
+    <h1>CSP Pseudocode Runner</h1>
+    By: Owen Dechow (<a href="/csp/justify">Justification of Implementation</a>)
 {% endblock header %}
 
 {% block content %}
-<div class="editing-screen">
-    <div class="buttons">
-        <div>
-            <button id="assign-btn">←</button>
-            <button id="neq-btn">≠</button>
-            <button id="gteq-btn">≥</button>
-            <button id="lteq-btn">≤</button>
+    <div class="editing-screen">
+        <div class="buttons">
+            <div>
+                <button id="assign-btn">←</button>
+                <button id="neq-btn">≠</button>
+                <button id="gteq-btn">≥</button>
+                <button id="lteq-btn">≤</button>
+            </div>
+            <div>
+                <label>
+                    Loaded Program:
+                    <select id="example-programs"></select>
+                </label>
+            </div>
+            <div>
+                <button id="run-btn">Run</button>
+                <button id="clear-btn">Clear</button>
+            </div>
         </div>
-        <div>
-            <label>
-                Loaded Program:
-                <select id="example-programs">
-                </select>
-            </label>
-        </div>
-        <div>
-            <button id="run-btn">Run</button>
-            <button id="clear-btn">Clear</button>
-        </div>
-    </div>
 
-    <div class="editor-wrapper">
-        <div id="numbers" class="numbers"></div>
-        <div class="editor">
-            <div class="suggestions" id="suggestions" style="display: none"></div>
-            <textarea spellcheck="false" class="code" id="code"></textarea>
-            <pre aria-hidden="true" class="highlighting highlight" id="highlighting">
+        <div class="editor-wrapper">
+            <div id="numbers" class="numbers"></div>
+            <div class="editor">
+                <div class="suggestions" id="suggestions" style="display: none"></div>
+                <textarea spellcheck="false" class="code" id="code"></textarea>
+                <pre aria-hidden="true" class="highlighting highlight" id="highlighting">
             </pre>
+            </div>
         </div>
-    </div>
 
-    <pre class="output" id="output"></pre>
-</div>
+        <pre class="output" id="output"></pre>
+    </div>
 
 {% endblock content %}

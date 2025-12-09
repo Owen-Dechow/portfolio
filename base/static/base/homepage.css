@@ -13,7 +13,7 @@ span.color {
 }
 
 header {
-    height: 100dvh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,6 +27,8 @@ header .bottom {
     border: unset;
     width: fit-content;
 }
+
+
 
 @keyframes scroll-indicator {
     from {
@@ -64,6 +66,18 @@ header .top {
         font-size: 5rem;
         margin: 0;
 
+    }
+}
+
+@media (max-width: 800px) {
+    header .top {
+        flex-direction: column-reverse;
+        width: min-content;
+        text-align: center;
+
+        h1 {
+            font-size: 2rem;
+        }
     }
 }
 
@@ -148,4 +162,10 @@ li a {
         }
     }
 
+}
+
+@media (max-width: 700px) {
+    li a {
+        grid-template-columns: auto;
+    }
 }

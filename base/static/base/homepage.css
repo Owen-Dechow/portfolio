@@ -12,7 +12,34 @@ span.color {
     }
 }
 
-.profile {
+header {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+header .bottom {
+    animation: scroll-indicator 2s ease-in-out infinite alternate;
+    font-size: 3rem;
+    background-color: inherit;
+    border: unset;
+    width: fit-content;
+}
+
+@keyframes scroll-indicator {
+    from {
+        transform: translateY(-10px);
+    }
+
+    to {
+        transform: translateY(10px);
+    }
+}
+
+
+header .top {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,17 +67,48 @@ span.color {
     }
 }
 
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    button {
+        background-color: unset;
+        font-size: inherit;
+        text-decoration: underline;
+        border: unset;
+
+        &:hover {
+            text-decoration: none;
+            background-color: inherit;
+        }
+    }
+}
+
 section {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .5s;
+
+    .section-content {
+        overflow: hidden;
+        padding: 2px;
+    }
+
+    &.show {
+        grid-template-rows: 1fr;
+    }
+
     h2 {
         display: flex;
         align-items: center;
+        gap: 10px;
 
         &::before,
         &::after {
             content: "";
             border: 1px solid;
             flex: 1;
-            margin: 5px;
         }
     }
 
@@ -62,24 +120,32 @@ ul {
 }
 
 li a {
-    border: 1px solid;
     border-radius: 10px;
     overflow: hidden;
-    display: flex;
-    margin-block: 1rem;
     text-decoration: none;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 1rem;
+    padding: 20px;
+    transition-duration: .25s;
+    margin-bottom: 1rem;
 
     img {
-        max-width: 150px;
-        aspect-ratio: 1;
-        object-fit: cover;
+        max-width: 100%;
+        border-radius: 10px;
     }
 
-    div {
-        padding: 10px;
+    p {
+        margin-bottom: 0;
     }
 
     &:hover {
-        background-color: #303030;
+        background-color: #202020;
+        outline: 1px solid skyblue;
+
+        span {
+            color: lightgreen;
+        }
     }
+
 }

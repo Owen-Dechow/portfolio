@@ -2,22 +2,26 @@
 
 {% load static %}
 
-{% block header %}
+{% block head %}
     <link rel="stylesheet" href="{% static "base/homepage.css" %}">
-{% endblock header %}
+    <script src="{% static "base/homepage.js" %}"></script>
+{% endblock head %}
 
 {% block fulltitle %}
     Owen Dechow
 {% endblock fulltitle %}
 
 {% block navigation %}
+    <button onclick="displaySection('about')">About</button>
+    <button onclick="displaySection('learning')">Learning Tools</button>
+    <button onclick="displaySection('projects')">Projects</button>
 {% endblock navigation %}
 
-{% block content %}
-    <div class="profile">
-        <div class="left">
-            <img src="{% static "base/profile.jpg" %}" alt="Profile Image">
-        </div>
+{% block header %}
+    <div class="top">
+        <img class="left"
+             src="{% static "base/profile.jpg" %}"
+             alt="Profile Image">
         <div class="right">
             The official website of
             <h1>
@@ -28,131 +32,130 @@
             <span class="color">— Colossians 3:23</span>
         </div>
     </div>
+    <button class="bottom" onclick="scrollToElement('nav')">🞃</button>
+{% endblock header %}
 
-    <section>
-        <h2>A Little About Me</h2>
-        <p>
-            <q>As each has received a gift, use it to serve one another, as good stewards of God’s varied grace.</q>
-            <span class="color">— 1 Peter 4:10</span>
-        </p>
-        <p>
-            Hello, my name is <span class="color">Owen Dechow</span>. I am a young software engineer who wants to use
-            his skills to serve others and to serve the <span class="color">Lord</span>. I have experience with full-stack
-            web development, game development, data science, and systems programming. My favorite programming language is
-            <span class="color">C#</span>, but the languages I use the most are <span class="color">Python</span>,
-            <span class="color">JavaScript</span>, and <span class="color">Rust</span>. My favorite framework is
-            <span class="color">Django</span>.
-        </p>
-        <p>
-            I believe that every talent, skill, and gift are from the <span class="color">Lord</span>, and it is every man's
-            calling to use those <span class="color">gifts</span> for the expansion of <span class="color">God's</span> kingdom.
-            I plan to, <span class="color">God</span> willing, to work in the <span class="color">software engineering</span>
-            industry, while also working in ministry.
-        </p>
+{% block content %}
+    <section id="about" class="show">
+        <div class="section-content">
+            <h2>A Little About Me</h2>
+            <p>
+                <q>As each has received a gift, use it to serve one another, as good stewards of God’s varied grace.</q>
+                <span class="color">— 1 Peter 4:10</span>
+            </p>
+            <p>
+                Hello, my name is <span class="color">Owen Dechow</span>. I am a young software engineer who wants to use
+                his skills to serve others and to serve the <span class="color">Lord</span>. I have experience with full-stack
+                web development, game development, data science, and systems programming. My favorite programming language is
+                <span class="color">C#</span>, but the languages I use the most are <span class="color">Python</span>,
+                <span class="color">JavaScript</span>, and <span class="color">Rust</span>. My favorite framework is
+                <span class="color">Django</span>.
+            </p>
+            <p>
+                I believe that every talent, skill, and gift are from the <span class="color">Lord</span>, and it is every man's
+                calling to use those <span class="color">gifts</span> for the expansion of <span class="color">God's</span> kingdom.
+                I plan to, <span class="color">God</span> willing, to work in the <span class="color">software engineering</span>
+                industry, while also working in ministry.
+            </p>
+        </div>
     </section>
 
-    <section>
-        <h2>Learning Tools</h2>
-        <p>
-            <q>Blessed are those who find wisdom, those who gain understanding.</q>
-            <span class="color">— Proverbs 3:13</span>
-        </p>
-        <p>
-            One of the greatest blessings <span class="color">God</span> has given me is knowledge. It has allowed me practice
-            software engineering while still in <span class="color">high school</span>. A great benefit software engineering
-            in high school is that you can build the learning tools you wish you had. If your are a student hopefully you
-            find these tools are useful as I did.
-        </p>
-        <ul>
-            <li>
-                <a href="/csp">
-                    <img src="{% static "base/profile.jpg" %}" alt="Profile Image">
-                    <div>
-                        AP CSP - CSP Pseudocode Interpreter
-                        <p>
-                            College Board's Advanced Placement <span class="color">Computer Science Principals</span> class uses
-                            pseudocode instead of an actual language on the AP test. It is important though to understand this
-                            pseudocode. Therefore, I implemented a simple pseudocode interpreter, so you can practice in the language
-                            you will be tested on.
-                        </p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="/silk-road">
-                    <img src="{% static "base/profile.jpg" %}" alt="Profile Image">
-                    <div>
-                        AP World Hist. Modern - The Silk Road Game
-                        <p>
-                            Trade is an extremely important topic in College Board's Advanced Placement <span class="color">World History</span>
-                            Class. One of the most important trade routes in history was the Silk Road. In an attempt to make history
-                            interesting, I have created a simple Silk Road game.
-                        </p>
-                    </div>
-                </a>
-            </li>
-        </ul>
+    <section id="learning">
+        <div class="section-content">
+            <h2>Learning Tools</h2>
+            <p>
+                <q>Blessed are those who find wisdom, those who gain understanding.</q>
+                <span class="color">— Proverbs 3:13</span>
+            </p>
+            <p>
+                One of the greatest blessings <span class="color">God</span> has given me is knowledge. It has allowed me practice
+                software engineering while still in <span class="color">high school</span>. A great benefit software engineering
+                in high school is that you can build the learning tools you wish you had. If your are a student hopefully you
+                find these tools are useful as I did.
+            </p>
+            <ul>
+                <li>
+                    <a href="/csp" target="_blank">
+                        <img src="{% static "base/csp-interpreter.png" %}"
+                             alt="CSP interpreter image">
+                        <div>
+                            <span>AP CSP - CSP Pseudocode Interpreter</span>
+                            <p>
+                                College Board's Advanced Placement <span class="color">Computer Science Principals</span> class uses
+                                pseudocode instead of an actual language on the AP test. It is important though to understand this
+                                pseudocode. Therefore, I implemented a simple pseudocode interpreter, so you can practice in the language
+                                you will be tested on.
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/Owen-Dechow/TheSilkRoadGame" target="_blank">
+                        <img src="{% static "base/silkroad-map.webp" %}" alt="Silk Road map image">
+                        <div>
+                            <span>AP World Hist. Modern - The Silk Road Game</span>
+                            <p>
+                                Trade is an extremely important topic in College Board's Advanced Placement <span class="color">World History</span>
+                                Class. One of the most important trade routes in history was the Silk Road. In an attempt to make history
+                                interesting, I have created a simple Silk Road game.
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </section>
 
-    <section>
-        <h2>Projects</h2>
-        <p>
-            <q>Commit to the Lord whatever you do, and He will establish your plans.</q>
-            <span class="color">— Proverbs 16:3</span>
-        </p>
-        <ul>
-            <li>
-                <a href="https://herdgenetics.com">
-                    <img src="https://herdgenetics.s3.amazonaws.com/media/banner7.webp" alt="Profile Image">
-                    <div>
-                        Herd Genetics
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab at dolores minima accusantium non.
-                            Rerum, vero! Atque sed debitis enim, quae aliquam velit provident, molestiae placeat mollitia sunt
-                            quia quod.
-                        </p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/Owen-Dechow/videre.nvim">
-                    <img src="{% static "base/profile.jpg" %}" alt="Profile Image">
-                    <div>
-                        videre.nvim
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab at dolores minima accusantium non.
-                            Rerum, vero! Atque sed debitis enim, quae aliquam velit provident, molestiae placeat mollitia sunt
-                            quia quod.
-                        </p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="https://beaAg.com">
-                    <img src="{% static "base/profile.jpg" %}" alt="Profile Image">
-                    <div>
-                        beaAg.com
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab at dolores minima accusantium non.
-                            Rerum, vero! Atque sed debitis enim, quae aliquam velit provident, molestiae placeat mollitia sunt
-                            quia quod.
-                        </p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/Owen-Dechow/NotebookLang">
-                    <img src="{% static "base/profile.jpg" %}" alt="Profile Image">
-                    <div>
-                        NotebookLang
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab at dolores minima accusantium non.
-                            Rerum, vero! Atque sed debitis enim, quae aliquam velit provident, molestiae placeat mollitia sunt
-                            quia quod.
-                        </p>
-                    </div>
-                </a>
-            </li>
-        </ul>
+    <section id="projects">
+        <div class="section-content">
+            <h2>Projects</h2>
+            <p>
+                <q>Commit to the Lord whatever you do, and He will establish your plans.</q>
+                <span class="color">— Proverbs 16:3</span>
+            </p>
+            <ul>
+                <li>
+                    <a href="https://herdgenetics.com" target="_blank">
+                        <img src="{% static "base/herdgenetics.png" %}" alt="Herd Genetics image">
+                        <div>
+                            <span>Herd Genetics</span>
+                            <p>
+                                <span class="color">Herd Genetics</span> is a full stack web simulation, dedicated to teaching
+                                about animal genetics. It Simulates breeding programs, focusing on PTAs, genetic recessives and
+                                inbreeding coefficients. Herd Genetics aims for accuracy of PTA/Trait correlations and trends.
+                                It is a classroom based system targeting group learning with every simulation belonging to a class.
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/Owen-Dechow/videre.nvim" target="_blank">
+                        <img src="{% static "base/videre.png" %}" alt="Videre Image">
+                        <div>
+                            <span>videre.nvim</span>
+                            <p>
+                                Many editors have the option to view JSON & YAML files as a graph. Neovim, with a terminal interface,
+                                does not have this luxury. While one can't create an interface like JSON Crack, it is possible
+                                to build a similar JSON explorer using Neovim's terminal interface. <span class="color">Videre</span>
+                                does just that.
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/Owen-Dechow/TermsLang" target="_blank">
+                        <img src="{% static "base/termslang.webp" %}" alt="Profile Image">
+                        <div>
+                            <span>TermsLang</span>
+                            <p>
+                                <span class="color">TermsLang</span> is a custom programming language built using Rust. Perhaps one of the
+                                least practical of these projects, its sole purpose is to be an advanced learning experience and an example
+                                to others of what is possible using Rust.
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </section>
 {% endblock content %}

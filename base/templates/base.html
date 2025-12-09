@@ -15,33 +15,33 @@
 
         </title>
         <link rel="stylesheet" href="{% static "base/main.css" %}">
+
+        <style>
+            @font-face {
+                font-family: 'Montserrat';
+                src: url('{% static "base/montserrat.ttf" %}') format('truetype');
+            }
+        </style>
+
         {% block head %}
         {% endblock head %}
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-              rel="stylesheet">
     </head>
     <body>
-
-        {% block navigation %}
-            <nav>
-                <a href="/">&lt;/Owen Dechow&gt;</a>
-            </nav>
-        {% endblock navigation %}
-
         <header>
             {% block header %}
             {% endblock header %}
-
         </header>
+
+        <nav>
+            {% block navigation %}
+                <a href="/">&lt;/Owen Dechow&gt;</a>
+            {% endblock navigation %}
+        </nav>
 
         <main>
             {% block content %}
             {% endblock content %}
-
         </main>
-
     </body>
 </html>

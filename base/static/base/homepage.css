@@ -22,7 +22,7 @@ header {
 
 header .bottom {
     animation: scroll-indicator 2s ease-in-out infinite alternate;
-    font-size: 3rem;
+    font-size: 2rem;
     background-color: inherit;
     border: unset;
     width: fit-content;

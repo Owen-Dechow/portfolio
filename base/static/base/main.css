@@ -37,3 +37,28 @@ button {
         background-color: #303030;
     }
 }
+
+
+footer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    transition-duration: .25s;
+    flex-wrap: wrap;
+
+    .social {
+        display: flex;
+        opacity: .7;
+        align-items: center;
+        gap: 3px;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        img {
+            width: 2rem;
+            aspect-ratio: 1;
+        }
+    }
+}

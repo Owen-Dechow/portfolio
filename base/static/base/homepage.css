@@ -32,7 +32,7 @@ header .bottom {
 
 @keyframes scroll-indicator {
     from {
-        transform: translateY(-10px);
+        transform: translateY(-5px);
     }
 
     to {

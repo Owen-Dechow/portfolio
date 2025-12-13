@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Farmle
+{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "farmle/main.css" %}">
+    <script type="module" src="{% static "farmle/main.js" %}"></script>
+{% endblock head %}
+
+{% block header %}
+    <h1>Farmle</h1>
+    <p>Guess the farm related term in as few guesses as possible</p>
+{% endblock header %}
+
+{% block content %}
+    <div class="category">Category: <span id="category"></span></div>
+    <ol class="guesses">
+        <li>
+            <input type="text">
+            <button>⇒</button>
+            <ol class="suggestions"></ol>
+        </li>
+        <li>
+            <input disabled type="text">
+            <button disabled>⇒</button>
+            <ol class="suggestions"></ol>
+        </li>
+        <li>
+            <input disabled type="text">
+            <button disabled>⇒</button>
+            <ol class="suggestions"></ol>
+        </li>
+        <li>
+            <input disabled type="text">
+            <button disabled>⇒</button>
+            <ol class="suggestions"></ol>
+        </li>
+        <li>
+            <input disabled type="text">
+            <button disabled>⇒</button>
+            <ol class="suggestions"></ol>
+        </li>
+        <li>
+            <input disabled type="text">
+            <button disabled>⇒</button>
+            <ol class="suggestions"></ol>
+        </li>
+    </ol>
+{% endblock content %}

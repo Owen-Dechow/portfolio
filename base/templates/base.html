@@ -9,8 +9,7 @@
             {% block fulltitle %}
                 {% block title %}
                 {% endblock title %}
-
-                —Owen Dechow
+                | Owen Dechow
             {% endblock fulltitle %}
 
         </title>
@@ -28,16 +27,16 @@
 
     </head>
     <body>
+        <nav>
+            {% block navigation %}
+            <a href="/">&lt;/Owen Dechow&gt;</a>
+            {% endblock navigation %}
+        </nav>
+
         <header>
             {% block header %}
             {% endblock header %}
         </header>
-
-        <nav>
-            {% block navigation %}
-                <a href="/">&lt;/Owen Dechow&gt;</a>
-            {% endblock navigation %}
-        </nav>
 
         <main>
             {% block content %}

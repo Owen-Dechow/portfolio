@@ -12,9 +12,6 @@
 {% endblock fulltitle %}
 
 {% block navigation %}
-    <button onclick="displaySection('about')">About</button>
-    <button onclick="displaySection('learning')">Learning Tools</button>
-    <button onclick="displaySection('projects')">Projects</button>
 {% endblock navigation %}
 
 {% block header %}
@@ -32,10 +29,16 @@
             <span class="color">— Colossians 3:23</span>
         </div>
     </div>
-    <button class="bottom" onclick="scrollToElement('nav')">▼</button>
+    <button class="bottom" onclick="scrollToElement('.tabs')">▼</button>
 {% endblock header %}
 
 {% block content %}
+    <div class="tabs">
+        <button onclick="displaySection('about')">About</button>
+        <button onclick="displaySection('learning')">Learning Tools</button>
+        <button onclick="displaySection('projects')">Projects</button>
+    </div>
+
     <section id="about" class="show">
         <div class="section-content">
             <h2>A Little About Me</h2>
@@ -138,6 +141,17 @@
                                 does not have this luxury. While one can't create an interface like JSON Crack, it is possible
                                 to build a similar JSON explorer using Neovim's terminal interface. <span class="color">Videre</span>
                                 does just that.
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/farmle" target="_blank">
+                        <img src="{% static "base/farmle.png" %}" alt="Profile Image">
+                        <div>
+                            <span>Farmle</span>
+                            <p>
+                                Do you think you need Wordle for the farm? Yes, you do! Here it is: <span class="color">Farmle</span>.
                             </p>
                         </div>
                     </a>

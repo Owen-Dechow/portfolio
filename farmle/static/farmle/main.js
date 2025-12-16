@@ -83,7 +83,10 @@ function enterGuess(event, i) {
     if (!ipt || !btn || !li) return;
 
     const value = ipt.value.trim().toLowerCase();
-    if (!lowerWordList.includes(value)) return;
+    if (!lowerWordList.includes(value)) {
+        alert(`"${ipt.value}" is not a valid term.`);
+        return;
+    };
 
     ipt.toggleAttribute("disabled", true);
     btn.toggleAttribute("disabled", true);

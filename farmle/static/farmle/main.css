@@ -14,7 +14,6 @@ header {
     margin: 5px;
 
     input {
-        font-size: 1.25rem;
         padding: 5px;
         background-color: #181818;
         color: inherit;
@@ -57,7 +56,7 @@ header {
         position: absolute;
         z-index: 1;
         padding: 0;
-        top: 40px;
+        top: 30px;
         background-color: #181818;
         list-style: none;
         border: 1px solid;

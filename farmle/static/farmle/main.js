@@ -1,6 +1,6 @@
 // @ts-check
 
-import { lowerWordList, wordList } from "./words.js";
+import { wordList } from "./words.js";
 import { targetWord } from "./targetWord.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
  */
 function onTextInput(event) {
     const elem = /** @type {HTMLInputElement} */(event.target);
-    const validWords = wordList.filter(w => w.trim().toLowerCase().includes(elem.value.trim().toLowerCase())).slice(0, 15);
+    const validWords = wordList.filter(w => w.includes(elem.value.trim().toUpperCase())).slice(0, 15);
     const suggestions = elem.parentNode?.querySelector(".suggestions");
     closeSuggestions();
 
@@ -82,16 +82,18 @@ function enterGuess(event, i) {
 
     if (!ipt || !btn || !li) return;
 
-    const value = ipt.value.trim().toLowerCase();
-    if (!lowerWordList.includes(value)) {
-        alert(`"${ipt.value}" is not a valid term.`);
+    ipt.value = ipt.value.trim().toUpperCase();
+    if (!wordList.includes(ipt.value)) {
+        window.setTimeout(() => {
+            alert(`"${ipt.value}" is not a valid term.`);
+        }, 0);
         return;
     };
 
     ipt.toggleAttribute("disabled", true);
     btn.toggleAttribute("disabled", true);
 
-    if (value.toLowerCase() == targetWord.word.toLowerCase()) {
+    if (ipt.value == targetWord.word) {
         ipt.classList.add("correct");
         overlay(
             "You win!",

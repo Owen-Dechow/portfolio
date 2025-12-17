@@ -7,7 +7,6 @@ export const wordList = [
     "AGCO CORPORATION",
     "AGRICULTURAL ACT OF 2014",
     "AGRICULTURAL ADJUSTMENT ACT",
-    "AGRICULTURAL ADJUSTMENT ACT OF 1933",
     "AGRICULTURAL MARKETING ACT",
     "AGRICULTURAL MARKETING SERVICE",
     "AGRICULTURAL RISK PROTECTION ACT OF 2000",
@@ -143,7 +142,6 @@ export const wordList = [
     "CHIQUITA BRANDS INTERNATIONAL",
     "CHUTE DOGGING",
     "CINNAMON",
-    "CLAAS",
     "CLEAN WATER ACT",
     "CLIMATE",
     "CLIMATE MODELING",
@@ -327,7 +325,6 @@ export const wordList = [
     "FOOD SAFETY TESTING",
     "FOOD SCIENTIST",
     "FOOD SECURITY ACT",
-    "FOOD SECURITY ACT OF 1985",
     "FOOD STAMP ACT OF 1964",
     "FOOD SYSTEMS ANALYST",
     "FOOD, CONSERVATION, AND ENERGY ACT OF 2008",
@@ -380,7 +377,7 @@ export const wordList = [
     "GREEN REVOLUTION",
     "GREENHOUSE",
     "GREENHOUSE AUTOMATION",
-    "GT THOMPSON",
+    "G. T. THOMPSON",
     "GUERNSEY",
     "GUINEA FOWL",
     "HABITAT RESTORATION",
@@ -423,7 +420,6 @@ export const wordList = [
     "HORMEL FOODS",
     "HORSE",
     "HORSE TRAINER",
-    "HORSES",
     "HORTICULTURIST",
     "HYBRID SEED",
     "HYDROLOGY",
@@ -438,7 +434,6 @@ export const wordList = [
     "INTERNATIONAL FUND FOR AGRICULTURAL DEVELOPMENT",
     "INTERNATIONAL LIVESTOCK RESEARCH INSTITUTE",
     "INTERNATIONAL RICE RESEARCH INSTITUTE",
-    "IRRIGATION",
     "IRRIGATION CANAL",
     "IRRIGATION DITCH",
     "IRRIGATION PIVOT",
@@ -682,7 +677,6 @@ export const wordList = [
     "ROTARY HOE",
     "ROTARY TILLER",
     "ROTATIONAL GRAZING",
-    "ROTATIONAL GRAZING SYSTEM",
     "ROTOTILLER",
     "RUBBER TREE",
     "RURAL ELECTRIFICATION ACT OF 1936",
@@ -758,7 +752,6 @@ export const wordList = [
     "SPINACH",
     "SPOTTED SWINE",
     "SPRAYER",
-    "SPRINKLER",
     "SPRINKLER SYSTEM",
     "SPURS",
     "SQUASH",
@@ -932,13 +925,13 @@ export const rounds = [
     ),
 
     new Round(
-        "PRACTICES",
+        "PEOPLE",
         "COMMODITY TRADER",
         "FINANCIAL ROLE",
-        "BUYS AND SELLS COMMODITIES",
-        "SPECULATES ON PRICE CHANGES",
         "WORKS IN MARKETS",
-        "PERSON TRADING AGRICULTURAL GOODS"
+        "SPECULATES ON PRICE CHANGES",
+        "PERSON TRADING AGRICULTURAL GOODS",
+        "BUYS AND SELLS COMMODITIES",
     ),
 
     new Round(
@@ -1597,16 +1590,6 @@ export const rounds = [
         "INFLUENCED FARM POLICIES",
         "FORMER GOVERNOR OF GEORGIA",
         "CONTEMPORARY AMERICAN AGRICULTURAL LEADER"
-    ),
-
-    new Round(
-        "TOOLS",
-        "IRRIGATION SYSTEM",
-        "INVOLVES MANAGING WATER FLOW",
-        "CRITICAL IN DRY CONDITIONS",
-        "OFTEN PERMANENTLY INSTALLED",
-        "DELIVERS WATER TO CROPS",
-        "USED TO IRRIGATE FIELDS"
     ),
 
     new Round(
@@ -2835,16 +2818,6 @@ export const rounds = [
     ),
 
     new Round(
-        "PRACTICES",
-        "IRRIGATION",
-        "WATER MANAGEMENT",
-        "SUPPLIES PLANTS WITH MOISTURE",
-        "CAN BE MANUAL OR AUTOMATED",
-        "USED IN DRY CLIMATES",
-        "PROVIDES WATER TO CROPS SYSTEMATICALLY"
-    ),
-
-    new Round(
         "PEOPLE",
         "LOUIS PASTEUR",
         "SCIENTIST",
@@ -3873,7 +3846,7 @@ export const rounds = [
 
     new Round(
         "PEOPLE",
-        "GT THOMPSON",
+        "G. T. THOMPSON",
         "HISTORICAL FIGURE",
         "AGRICULTURAL LEADER",
         "LINKED TO EARLY AMERICAN FARMING",

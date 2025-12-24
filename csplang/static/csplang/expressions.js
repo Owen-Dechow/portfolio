@@ -90,6 +90,58 @@ export class Expression {
     }
 }
 
+export class IndexExpression extends Expression {
+    /**
+     * @param {Expression} idx
+     * @param {Expression} list
+     */
+    constructor(idx, list) {
+        super();
+
+        /** @type {Expression} */
+        this.idx = idx;
+
+        /** @type {Expression} */
+        this.list = list;
+    }
+
+    /**
+     * @returns {[number, number]}
+     */
+    getLocRange() {
+        const lr = this.idx.getLocRange();
+        const rr = this.list.getLocRange();
+        return combineRange(lr, rr);
+    }
+
+    /**
+     * @param {Context} context
+     * @returns {Value}
+     */
+    evaluate(context) {
+        const list = this.list.evaluate(context);
+        const idx = this.idx.evaluate(context);
+
+        if (!(list instanceof ListValue) && !(list instanceof StringValue))
+            throw CSPError.fromExpression("Attempt to index non list/string object.", this.list);
+
+        if (!(idx instanceof NumberValue))
+            throw CSPError.fromExpression(`Indexes must be of type ${NumberValue.constructor.name}.`, this.idx);
+
+        if (list.value.length == 0)
+            throw CSPError.fromExpression("Attempt to index empty list/string object.", this.list);
+
+        if (!Number.isInteger(idx.value))
+            throw CSPError.fromExpression(`Indexes must be integers, ${idx.value} is a float.`, this.idx);
+
+        if (idx.value < 1 || idx.value > list.value.length)
+            throw CSPError.fromExpression(`${idx.value} is not in the range of the list/string: [1, ${list.value.length}].`, this.idx);
+
+        const val = list.value[idx.value - 1];
+        return val instanceof Value ? val : new StringValue(val);
+    }
+}
+
 /**
  * @param {[number, number]} a
  * @param {[number, number]} b
@@ -491,7 +543,19 @@ export function parseExpression(ts) {
                 const args = parseExpressionList(ts, true);
                 exp = new FunctionCall(exp.token, args[0], args[1]);
                 exp = sortExpression(exp);
-            } else {
+            } else if (
+                t.type == TokenType.OPEN_BRACKET
+                && (
+                    exp instanceof ListExpression
+                    || exp instanceof IdentityExpression
+                    || (exp instanceof LiteralExpression && exp.token.type == TokenType.STRING)
+                )
+            ) {
+                const index = parseExpression(ts);
+                exp = new IndexExpression(index, exp);
+                ts.takeSigOfType(TokenType.CLOSE_BRACKET);
+            }
+            else {
                 ts.back();
                 break;
             }
@@ -551,6 +615,10 @@ function sortExpression(exp) {
 
     if (exp instanceof IdentityExpression) {
         return new IdentityExpression(exp.token);
+    }
+
+    if (exp instanceof IndexExpression) {
+        return new IndexExpression(sortExpression(exp.idx), sortExpression(exp.list));
     }
 
     if (exp instanceof UnaryExpression) {

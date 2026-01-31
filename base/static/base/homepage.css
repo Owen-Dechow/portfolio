@@ -20,7 +20,7 @@ header {
     justify-content: center;
 
     p {
-       margin: 0; 
+        margin: 0;
     }
 }
 
@@ -114,6 +114,27 @@ section {
         }
     }
 
+}
+
+.tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    justify-content: center;
+
+    li {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: .5rem;
+        align-items: center;
+        border: 1px solid;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    img {
+        width: 1.5rem;
+    }
 }
 
 ul {

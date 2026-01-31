@@ -18,6 +18,10 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    p {
+       margin: 0; 
+    }
 }
 
 header .bottom {
@@ -30,6 +34,11 @@ header .bottom {
         Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+p:has(q) {
+    border-left: 2px solid;
+    padding: 5px;
+    opacity: 0.75;
+}
 
 
 @keyframes scroll-indicator {
@@ -83,33 +92,10 @@ header .top {
     }
 }
 
-.tabs {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-
-    button {
-        background-color: unset;
-        font-size: inherit;
-        text-decoration: underline;
-        border: unset;
-
-        &:hover {
-            text-decoration: none;
-            background-color: inherit;
-        }
-    }
-}
-
 section {
     display: grid;
     grid-template-rows: 0fr;
     transition: grid-template-rows .5s;
-
-    .section-content {
-        overflow: hidden;
-        padding: 2px;
-    }
 
     &.show {
         grid-template-rows: 1fr;

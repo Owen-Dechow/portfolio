@@ -105,6 +105,10 @@ export class Token {
 
         /** @type {number} */
         this.loc = loc + 1;
+
+        if (this.type == TokenType.STRING) {
+            this.value = this.value.replace("\\\\", "\\").replace("\\n", "\n");
+        }
     }
 }
 

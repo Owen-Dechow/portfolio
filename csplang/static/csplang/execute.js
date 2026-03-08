@@ -1,155 +1,20 @@
 // @ts-check
 
-import { BooleanValue, Expression, ListValue, NullValue, NumberValue, StringValue, Value } from "./expressions.js";
-import { Action, Assign, Conditional, ExpressionAction, For, MakeProc, RepeatN, RepeatUntil, Return } from "./action.js";
+import { BooleanValue, Expression, ListValue, NullValue, NumberValue, Value } from "./expressions.js";
+import { Action, Assign, AssignList, Conditional, ExpressionAction, For, MakeProc, RepeatN, RepeatUntil, Return } from "./action.js";
 import { CSPError } from "./error.js";
 import { Token } from "./tokens.js";
 import { parseProgram } from "./parser.js";
-import { ObjectFinder } from "./objects.js";
-
-/**
- * @param {number} nArgs
- * @param {string} name
- * @param {function(Value[], [number, number]): Value} callback
- */
-function makeBuiltinFunction(nArgs, name, callback) {
-    return (/** @type {Expression[]} */ args, /** @type {[number, number]} */ call_range, /** @type {Context} */ ctx) => {
-        if (nArgs != args.length) {
-            throw new CSPError(
-                call_range[0],
-                call_range[1],
-                `Incorrect number of arguments passed to function "${name}"; expected ${nArgs} found ${args.length}.`
-            );
-        }
-
-        let vArgs = [];
-        for (let i = 0; i < args.length; i++) {
-            vArgs.push(args[i].evaluate(ctx));
-        }
-
-        return callback(vArgs, call_range);
-    };
-}
-
-/**
- * @param {[number, number]} range
- * @param {any[]} lst
- * @param {number} idx
- * @param {boolean} allowNextEmpty
- */
-function throwBadIdx(range, lst, idx, allowNextEmpty) {
-    const throwErr = () => {
-        throw CSPError.fromRange(range, `${idx} is not a valid index for list of length ${lst.length}.`);
-    };
-
-    if (idx < 1)
-        throwErr();
-
-
-    if (allowNextEmpty) {
-        if (idx > lst.length + 1)
-            throwErr();
-    } else {
-        if (idx > lst.length)
-            throwErr();
-    }
-}
+import { addDefaultBuiltins } from "./builtin.js";
 
 /**
  * @param {string} text 
  */
 export function execute(text) {
     const ast = parseProgram(text);
-
     const gc = new Context();
-    gc.context = {
-        "LENGTH": makeBuiltinFunction(1, "LENGTH", (args, cr) => {
-            let lst = args[0];
 
-            if (lst instanceof ListValue)
-                return new NumberValue(lst.value.length);
-            else if (lst instanceof StringValue)
-                return new NumberValue(lst.value.length);
-
-            throw CSPError.fromRange(cr, `The function "LENGTH" expected ${ListValue.name} or ${StringValue.name}; found ${lst.constructor.name}.`);
-        }),
-        "DISPLAY": makeBuiltinFunction(1, "DISPLAY", (args, cr) => {
-            let arg = args[0];
-
-            if (arg instanceof StringValue || arg instanceof NumberValue || arg instanceof BooleanValue) {
-                ObjectFinder.output().textContent += " " + arg.value;
-
-                return new NullValue();
-            } else if (arg instanceof ListValue) {
-                throw CSPError.fromRange(cr, `The function "DISPLAY" can not directly take a list.`);
-            } else if (arg instanceof NullValue) {
-                throw CSPError.nullValueError(cr);
-            }
-
-            throw new Error("SHOULD NEVER HIT THIS POINT");
-        }),
-        "RANDOM": makeBuiltinFunction(2, "RANDOM", (args, cr) => {
-            const [a, b] = args;
-
-            if (!(a instanceof NumberValue && b instanceof NumberValue)) {
-                throw CSPError.fromRange(cr, `The function "RANDOM" expected two ${NumberValue.name}; found ${a.constructor.name} and ${b.constructor.name}.`);
-            }
-
-            if (a.value != Math.round(a.value) || b.value != Math.round(b.value)) {
-                throw CSPError.fromRange(cr, `The function "RANDOM" expected two integers; found ${a.value} and ${b.value}.`);
-            }
-
-            const min = Math.min(a.value, b.value);
-            const max = Math.max(a.value, b.value);
-            return new NumberValue(Math.round((max - min) * Math.random() + min));
-        }),
-        "INSERT": makeBuiltinFunction(3, "INSERT", (args, cr) => {
-            const [lst, idx, val] = args;
-
-            if (!(lst instanceof ListValue)) {
-                throw CSPError.fromRange(cr, `The function "INSERT" expected ${ListValue.name} as argument 1; found ${lst.constructor.name}.`);
-            }
-
-            if (!(idx instanceof NumberValue)) {
-                throw CSPError.fromRange(cr, `The function "INSERT" expected ${NumberValue.name} as argument 2; found ${lst.constructor.name}.`);
-            }
-
-            throwBadIdx(cr, lst.value, idx.value, true);
-
-            lst.value.splice(idx.value + 1, 0, val);
-            return new NullValue();
-        }),
-        "APPEND": makeBuiltinFunction(2, "APPEND", (args, cr) => {
-            const [lst, val] = args;
-
-            if (!(lst instanceof ListValue)) {
-                throw CSPError.fromRange(cr, `The function "APPEND" expected ${ListValue.name} as argument 1; found ${lst.constructor.name}.`);
-            }
-
-            lst.value.push(val);
-            return new NullValue();
-        }),
-        "REMOVE": makeBuiltinFunction(2, "REMOVE", (args, cr) => {
-            const [lst, idx] = args;
-
-            if (!(lst instanceof ListValue)) {
-                throw CSPError.fromRange(cr, `The function "REMOVE" expected ${ListValue.name} as argument 1; found ${lst.constructor.name}.`);
-            }
-
-            if (!(idx instanceof NumberValue)) {
-                throw CSPError.fromRange(cr, `The function "REMOVE" expected ${ListValue.name} as argument 1; found ${lst.constructor.name}.`);
-            }
-
-            throwBadIdx(cr, lst.value, idx.value, false);
-
-            lst.value.splice(idx.value, 1);
-            return new NullValue();
-        }),
-        "INPUT": makeBuiltinFunction(0, "INPUT", (_, __) => {
-            const val = window.prompt(`Enter your input to "INPUT()" here.`) || "";
-            return Value.fromInput(val);
-        })
-    };
+    addDefaultBuiltins(gc);
 
     executeBlock(ast, gc, gc);
 }
@@ -228,13 +93,13 @@ function executeBlock(block, context, gc) {
     for (const i in block) {
         const e = block[i];
         if (e instanceof MakeProc) {
-            const fn = (/** @type {Expression[]} */ args, /** @type {[number, number]} */ call_range, /** @type {Context} */ ctx) => {
+            const fn = (/** @type {Expression[]} */ args, /** @type {[number, number]} */ callRange, /** @type {Context} */ ctx) => {
                 const fnCtx = gc.makeChild();
 
                 if (args.length != e.args.length) {
                     throw new CSPError(
-                        call_range[0],
-                        call_range[1],
+                        callRange[0],
+                        callRange[1],
                         `Incorrect number of arguments passed to function "${e.name.value}"; expected ${e.args.length} found ${args.length}.`
                     );
                 }
@@ -248,6 +113,24 @@ function executeBlock(block, context, gc) {
             context.insert(e.name.value, fn);
         } else if (e instanceof Assign) {
             context.insert(e.variable.value, e.expression.evaluate(context));
+        } else if (e instanceof AssignList) {
+            const lst = e.indexVar.list.evaluate(context);
+            if (!(lst instanceof ListValue))
+                throw CSPError.fromExpression(`Expected ${ListValue.name} found ${lst.constructor.name}.`, e.indexVar.list);
+
+            const idx = e.indexVar.idx.evaluate(context);
+            if (!(idx instanceof NumberValue))
+                throw CSPError.fromExpression(`Expected ${NumberValue.name} found ${idx.constructor.name}.`, e.indexVar.idx);
+
+            if (!Number.isInteger(idx.value))
+                throw CSPError.fromExpression(`Indexes must be integers, ${idx.value} is a float.`, e.indexVar.idx);
+
+            if (idx.value < 1 || idx.value > lst.value.length + 1)
+                throw CSPError.fromExpression(`${idx.value} is not in the range of the list assignment: [1, ${lst.value.length + 1}].`, e.indexVar.idx);
+
+            lst.value[idx.value - 1] = e.expression.evaluate(context);
+
+
         } else if (e instanceof Conditional) {
             const condition = e.conditional.evaluate(context);
 

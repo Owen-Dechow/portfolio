@@ -6,18 +6,15 @@
     CSPLang Justification
 {% endblock title %}
 
-
 {% block head %}
     <link rel="stylesheet" href="{% static 'csplang/csp.css' %}">
     <script type="module" src="{% static 'csplang/main.js' %}"></script>
 {% endblock head %}
 
-
 {% block header %}
     <h1>Justification of Implementation</h1>
     (<a href="/csp">Implementation Sandbox</a>)
 {% endblock header %}
-
 
 {% block content %}
     <div class="article">
@@ -91,9 +88,11 @@
                 function does not print a newline, the text of the input will unfavorably
                 be on the same line as the output of the program if using terminal input.
             </p>
-            <code>userInput ← INPUT()
+            <code>
+                userInput ← INPUT()
                 DISPLAY("The user typed: ")
-            DISPLAY(userInput)</code>
+                DISPLAY(userInput)
+            </code>
         </div>
 
         <h2>3. INPUT as Number</h2>
@@ -103,7 +102,8 @@
             not it is a string.
         </p>
 
-        <code>ipt ← INPUT() // User enters "34"
+        <code>
+            ipt ← INPUT() // User enters "34"
             34 = ipt // `ipt` is of type NumberValue
 
             ipt ← INPUT() // User enters "hello"
@@ -121,10 +121,12 @@
                 operators for strings (there is no mention of them in the CSP spec
                 therefore they were left out intentionally).
             </p>
-            <code>"12" = 12 // True
+            <code>
+                "12" = 12 // True
                 353 = 353 // True
                 "43" = 4 // False
-            34 ≠ "3" // True</code>
+                34 ≠ "3" // True
+            </code>
         </div>
 
         <p>
@@ -140,104 +142,159 @@
             less intuitive.
         </p>
 
-        <h2>4. Insignificant Ordering of the RANDOM Function</h2>
+        <h2>4. Number LENGTH Equals Number of Digits</h2>
         <div class="splitable">
             <p>
-                The RANDOM function <q>Generates and returns a random integer from a to b,
-            including a and b. Each result is equally likely to occur.</q>
-            Because it does not state <q>a &lt; b</q> in the spec, the implementation
-            allows for either number to be the min or max.
-        </p>
-        <code>RANDOM(1, 10) // is the same as
-            RANDOM(10, 1)
-        RANDOM(7, 7) // Will always return 7</code>
-    </div>
+                Because INPUT is assumed to be a number if possible, it is common that a user
+                enters a number into INPUT then the program attempts to pass that input into LENGTH.
+                The solution to this is simple. Give numbers the same length they would have as strings.
+                This avoids complex type resolution. It should be noted that for inputs such as "022" the
+                will be 2 not 3 as the original input was. This is because "057" is converted and saved
+                as 57 and their are 2 digits in 22.
+            </p>
+            <code>
+                LENGTH(23) // This will return 2
+                LENGTH("23") // This will return 2
+                LENGTH("023") // This will return 3
+                LENGTH(023) // This will return 2
+            </code>
+        </div>
 
-    <h2>5. Dynamic List Types</h2>
-    <div class="splitable">
+        <h2>5. Significant Ordering of the RANDOM Function</h2>
+        <div class="splitable">
+            <p>
+                The RANDOM function
+                <q>
+                    Generates and returns a random integer from a to b,
+                    including a and b. Each result is equally likely to occur.
+                </q>
+                Although it does not state <q>a &lt; b</q> in the spec, the implementation
+                does not allow a to be greater than b.
+            </p>
+            <code>
+                RANDOM(1, 10) // Will generate a random number
+                // on the closed interval [1, 10]
+
+                RANDOM(10, 1) // Will throw an error
+                RANDOM(7, 7) // Will always return 7
+            </code>
+        </div>
+
+        <h2>6. Dynamic List Types</h2>
+        <div class="splitable">
+            <p>
+                In the implementation, lists can have differently typed elements. This is
+                the case for several reasons. One, there is no way to determine the inner type
+                of an empty list. Two, INPUT may result in a string or number. Three, the
+                spec does not say <q>lists must be comprised of one singular type.</q> Four, I do
+                not like JavaScript, and making them dynamic meant I had to write less of it.
+            </p>
+            <code>
+                // The following is a valid list
+                [1, "Hello", [1, 2]]
+            </code>
+        </div>
+        <h2>7. Comments</h2>
+
         <p>
-            In the implementation, lists can have differently typed elements. This is
-            the case for several reasons. One, there is no way to determine the inner type
-            of an empty list. Two, INPUT may result in a string or number. Three, the
-            spec does not say <q>lists must be comprised of one singular type.</q> Four, I do
-            not like JavaScript, and making them dynamic meant I had to write less of it.
+            The CSP spec does not have any mention of comments. Despite this I decided
+            to add single line comments anyway. As CSP has no practical use outside of a classroom.
+            I decided the clarity added from a comment is more beneficial than the value of a perfect
+            implementation.
         </p>
-        <code>// The following is a valid list
-        [1, "Hello", [1, 2]]</code>
-    </div>
-    <h2>6. Comments</h2>
 
-    <p>
-        The CSP spec does not have any mention of comments. Despite this I decided
-        to add single line comments anyway. As CSP has no practical use outside of a classroom.
-        I decided the clarity added from a comment is more beneficial than the value of a perfect
-        implementation.
-    </p>
+        <code>
+            // Hi there. This is a single line comment.
+        </code>
 
-    <code>// Hi there. This is a single line comment.</code>
-
-    <h2>7. Literals</h2>
-    <p>
-        There is no clear specification on how literals should appear in CSP (the spec does not
-        have any such section). I have chosen the following for the implementation based
-        on questions from college board and CSP code examples.
-    </p>
-    <div class="splitable">
+        <h2>8. Literals</h2>
         <p>
-            Numbers may only contain
-            digits and one single decimal point (the decimal point may be omitted in the case
-            of integers). A leading negative is valid but will be evaluated at runtime.
+            There is no clear specification on how literals should appear in CSP (the spec does not
+            have any such section). I have chosen the following for the implementation based
+            on questions from college board and CSP code examples.
         </p>
+        <div class="splitable">
+            <p>
+                Numbers may only contain
+                digits and one single decimal point (the decimal point may be omitted in the case
+                of integers). A leading negative is valid but will be evaluated at runtime.
+            </p>
 
-        <code>10 // Valid number
-            3.14 // Valid number
-            67.41.0 // Invalid number
-        -20 // Evaluated as ("-", "20")</code>
-    </div>
-    <div class="splitable">
-        <p>Strings must be encapsulated by double quotes. There are no escape sequences.</p>
-        <code>"I am a string" // Valid string
-            "\n" // This does not create a new line
-        'Hello' // Invalid string</code>
-    </div>
-    <div class="splitable">
+            <code>
+                10 // Valid number
+                3.14 // Valid number
+                67.41.0 // Invalid number
+                -20 // Evaluated as ("-", "20")
+            </code>
+        </div>
+        <div class="splitable">
+            <p>
+                Strings must be encapsulated by double quotes. There "\n" and "\\" are evaluated as escape sequences. \\ has precedence over \n.
+            </p>
+            <code>
+                "I am a string" // Valid string
+                "\n" // This is the new line sequence
+                "\\" // This is backslash sequence
+                'Hello' // Invalid string
+            </code>
+        </div>
+        <div class="splitable">
+            <p>
+                Booleans are implemented with the "true" and "false" keywords. They are both
+                case sensitive.
+            </p>
+            <code>
+                true // True
+                false // False
+                False // This is not the same as false
+            </code>
+        </div>
+
+        <h2>9. Null/Void Values</h2>
         <p>
-            Booleans are implemented with the "true" and "false" keywords. They are both
-            case sensitive.
+            The only way to create a null value in this implementation is to assign the
+            result of a function that does not return a value (such as DISPLAY) to a variable.
         </p>
-        <code>true // True
-            false // False
-        False // This is not the same as false </code>
-    </div>
 
-    <h2>8. Null/Void Values</h2>
-    <p>
-        The only way to create a null value in this implementation is to assign the
-        result of a function that does not return a value (such as DISPLAY) to a variable.
-    </p>
+        <div class="splitable">
+            <p>
+                If you attempt to display a null value to use an operator on it, the program will crash
+                and a Null Value Error will be raised.
+            </p>
+            <code>
+                val ← DISPLAY("") // val has a null value
+                DISPLAY(val) // Null Value Error raised
+            </code>
+        </div>
 
-    <div class="splitable">
+        <h2>10. No First Class Procedures</h2>
         <p>
-            If you attempt to display a null value to use an operator on it, the program will crash
-            and a Null Value Error will be raised.
+            While you may create a procedure inside of a different procedure, the inner procedure only
+            has access to the global scope. As CSP is meant to be language agnostic, I followed
+            the simplest design pattern possible, and the one with least JavaScript.
         </p>
-        <code>val ← DISPLAY("") // val has a null value
-        DISPLAY(val) // Null Value Error raised</code>
-    </div>
+        <code>
+            PROCEDURE myProc(arg1)
+            {
+            PROCEDURE myInnerProc()
+            {
+            DISPLAY(arg1) // Although this is
+            //  inside myProc it
+            //  does not have access
+            //  to arg1
+            }
+            myInnerProc()
+            }
 
-    <h2>9. No First Class Procedures</h2>
-    <p>
-        While you may create a procedure inside of a different procedure, the inner procedure only
-        has access to the global scope. As CSP is meant to be language agnostic, I followed
-        the simplest design pattern possible, and the one with least JavaScript.
-    </p>
-    <code val="PROCEDURE myProc(arg1) { PROCEDURE myInnerProc() { DISPLAY(arg1) // Although this is //  inside myProc it //  does not have access //  to arg1 }  myInnerProc() }  myProc(10) // This results in an error"></code>
-    <h2>10. Complete Guide</h2>
-    <p>
-        A complete guide on CSP can be found in the specification at
-        <a target="_blank"
-           href="https://apcentral.collegeboard.org/media/pdf/ap-computer-science-principles-exam-reference-sheet.pdf">
-            https://apcentral.collegeboard.org/media/pdf/ap-computer-science-principles-exam-reference-sheet.pdf</a>.
-        </p>
-    </div>
-{% endblock content %}
+            myProc(10) // This results in an error
+        </code>
+
+        <h2>11. Complete Guide</h2>
+        <p>
+            A complete guide on CSP can be found in the specification at
+            <a target="_blank"
+               href="https://apcentral.collegeboard.org/media/pdf/ap-computer-science-principles-exam-reference-sheet.pdf">
+                https://apcentral.collegeboard.org/media/pdf/ap-computer-science-principles-exam-reference-sheet.pdf</a>.
+            </p>
+        </div>
+    {% endblock content %}

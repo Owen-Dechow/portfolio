@@ -2,14 +2,29 @@
 
 export function highlightAllCodeBlocks() {
     document.querySelectorAll("code").forEach(e => {
-        const text = e.getAttribute("val") || e.innerHTML;
+        const lines = e.innerHTML.trim().split("\n");
 
-        e.innerHTML = highlight(text);
+        let indent = 0;
+        let text = "";
+
+        lines.forEach(e => {
+            var e = e.trim();
+
+            if (e.startsWith("}"))
+                indent -= 1;
+
+            if (indent > 0)
+                text += "  ".repeat(indent);
+
+            text += e + "\n";
+
+            if (e.endsWith("{"))
+                indent += 1;
+        });
+
+        e.innerHTML = highlight(text.trim());
         e.classList.add("highlight");
-
-        if (e.hasAttribute("val")) {
-            e.style.whiteSpace = "pre";
-        }
+        e.style.whiteSpace = "pre";
     });
 }
 

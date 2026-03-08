@@ -1,6 +1,6 @@
 // @ts-check
 
-import { Expression } from "./expressions.js";
+import { Expression, IndexExpression } from "./expressions.js";
 import { Token } from "./tokens.js";
 
 export class Action { }
@@ -116,6 +116,22 @@ export class Assign extends Action {
 
         /** @type {Token} */
         this.variable = variable;
+
+        /** @type {Expression} */
+        this.expression = expression;
+    }
+}
+
+export class AssignList extends Action {
+    /**
+     * @param {IndexExpression} indexVar
+     * @param {Expression} expression
+     */
+    constructor(indexVar, expression) {
+        super();
+
+        /** @type {IndexExpression} */
+        this.indexVar = indexVar;
 
         /** @type {Expression} */
         this.expression = expression;

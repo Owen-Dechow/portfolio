@@ -395,7 +395,7 @@ export class FunctionCall extends Expression {
         }
 
         const start = this.func.loc;
-        const end = this.func.loc - this.func.value.length;
+        const end = this.close.loc;
         let returnVal = func(this.args, [start, end], context);
         return returnVal == null ? new NullValue() : returnVal;
     }

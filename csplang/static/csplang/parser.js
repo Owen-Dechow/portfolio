@@ -1,9 +1,9 @@
 // @ts-check
 
-import { parseExpression } from "./expressions.js";
+import { IndexExpression, ListExpression, parseExpression } from "./expressions.js";
 import { CSPError } from "./error.js";
 import { TokenType, TokenStream, Token, wordTokens, operatorTokens } from "./tokens.js";
-import { Assign, Conditional, ExpressionAction, For, MakeProc, RepeatN, RepeatUntil, Return } from "./action.js";
+import { Assign, AssignList, Conditional, ExpressionAction, For, MakeProc, RepeatN, RepeatUntil, Return } from "./action.js";
 const ParserState = Object.freeze({
     NONE: "NONE",
     NUMBER: "NUMBER",
@@ -304,7 +304,19 @@ function parseIdLeadLine(ts) {
     if (t.type == TokenType.ASSIGN) {
         return parseAssign(ts);
     } else {
-        return new ExpressionAction(parseExpression(ts));
+        const expr = new ExpressionAction(parseExpression(ts));
+
+        if (expr.expression instanceof IndexExpression) {
+            const t = ts.nextSig();
+            if (t.type == TokenType.ASSIGN) {
+                return new AssignList(expr.expression, parseExpression(ts));
+            } else {
+                ts.back();
+                return expr;
+            }
+        }
+
+        return expr;
     }
 }
 
